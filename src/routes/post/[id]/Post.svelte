@@ -11,7 +11,7 @@
     </section>
 </article>
 
-<style>
+<style lang="scss">
     h1 {
         font-size: 2rem;
         margin: 16px 0;

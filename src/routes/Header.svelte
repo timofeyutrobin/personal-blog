@@ -8,7 +8,7 @@
     <Tabs/>
 </header>
 
-<style>
+<style lang="scss">
     header {
         position: absolute;
         top: 0;

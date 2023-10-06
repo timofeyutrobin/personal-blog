@@ -9,7 +9,7 @@
     <Post post={data}/>
 </div>
 
-<style>
+<style lang="scss">
     div {
         width: 80%;
         max-width: 1440px;

@@ -15,7 +15,7 @@
     {/if}
 </article>
 
-<style>
+<style lang="scss">
     article {
         padding: 24px;
         background-color: #eee;

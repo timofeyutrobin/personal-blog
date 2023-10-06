@@ -9,7 +9,7 @@
     <PostFeed posts={data.posts}/>
 </div>
 
-<style>
+<style lang="scss">
     div {
         width: 60%;
         margin: 16px auto;

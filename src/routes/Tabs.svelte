@@ -30,7 +30,7 @@
     </ul>
 </nav>
 
-<style>
+<style lang="scss">
     nav {
         height: 100%;
     }
@@ -50,9 +50,9 @@
 
         font-size: 1.3rem;
         padding: 0 8px;
-    }
 
-    a:hover {
-        background-color: #ddd;
+        &:hover {
+            background-color: #ddd;
+        }
     }
 </style>
