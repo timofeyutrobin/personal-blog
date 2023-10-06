@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Header from './Header.svelte';
+	import "../app.scss";
+    import Header from './Header.svelte';
 </script>
 
 <Header/>
@@ -7,9 +8,10 @@
     <slot/>
 </main>
 
-<style>
+<style lang="scss">
     main {
         position: absolute;
         top: 60px;
+        width: 100%;
     }
 </style>

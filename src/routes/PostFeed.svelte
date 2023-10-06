@@ -13,7 +13,7 @@
     {/each}
 </ul>
 
-<style>
+<style lang="scss">
     li {
         margin-bottom: 16px;
     }
