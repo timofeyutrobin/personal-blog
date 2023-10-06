@@ -1,30 +1,18 @@
 <script lang="ts">
     import type { Data } from './+page.server';
-	import PostSnippet from './PostSnippet.svelte';
+	import PostFeed from './PostFeed.svelte';
+
     export let data: Data;
 </script>
 
 <main>
-    <ul>
-        {#each data.posts as post}
-            <li>
-                <PostSnippet {...post}/>
-            </li>
-        {/each}
-    </ul>
+    <PostFeed posts={data.posts}/>
 </main>
 
 <style>
     main {
-        padding: 16px 0;
-    }
-
-    ul {
-        width: 60vw;
+        width: 60%;
         margin: auto;
-    }
-
-    li {
-        margin-bottom: 16px;
+        padding: 16px 0;
     }
 </style>
