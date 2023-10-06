@@ -15,6 +15,6 @@
 
 <style lang="scss">
     li {
-        margin-bottom: 16px;
+        margin-bottom: indent(2);
     }
 </style>

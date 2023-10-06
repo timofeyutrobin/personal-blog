@@ -12,6 +12,6 @@
 <style lang="scss">
     div {
         width: 60%;
-        margin: 16px auto;
+        margin: indent(2) auto;
     }
 </style>
