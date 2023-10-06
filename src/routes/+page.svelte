@@ -5,14 +5,13 @@
     export let data: Data;
 </script>
 
-<main>
+<div>
     <PostFeed posts={data.posts}/>
-</main>
+</div>
 
 <style>
-    main {
+    div {
         width: 60%;
-        margin: auto;
-        padding: 16px 0;
+        margin: 16px auto;
     }
 </style>

@@ -3,12 +3,13 @@
 </script>
 
 <Header/>
-<div class="content">
+<main>
     <slot/>
-</div>
+</main>
 
 <style>
-    .content {
-        margin-top: 60px;
+    main {
+        position: absolute;
+        top: 60px;
     }
 </style>
