@@ -38,7 +38,7 @@
     ul {
         height: 100%;
         display: flex;
-        padding: 0 24px;
+        padding: 0 indent(3);
     }
 
     a {
@@ -49,10 +49,6 @@
         justify-content: center;
 
         font-size: 1.3rem;
-        padding: 0 8px;
-
-        &:hover {
-            background-color: #ddd;
-        }
+        padding: 0 indent(1);
     }
 </style>

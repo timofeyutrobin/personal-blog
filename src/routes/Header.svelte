@@ -20,12 +20,14 @@
         height: 60px;
         padding: 0 20px;
 
-        background-color: #eee;
+        background-color: $main-background-color;
+
+        border-bottom: 1px solid $border-color;
     }
 
     div {
         height: 100%;
-        margin-left: 16px;
+        margin-left: indent(2);
 
         display: flex;
         flex-direction: column;

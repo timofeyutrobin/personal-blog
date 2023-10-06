@@ -1,1 +1,11 @@
 /* Variables and mixins declared here will be available in all other SCSS files */
+$base-indent: 8px;
+@function indent($multiplier) {
+  @return $base-indent * $multiplier;
+}
+
+$body-background-color: rgb(240, 240, 240);
+$main-background-color: #FFF;
+$border-color: #ddd;
+
+$text-color-primary: rgb(50, 50, 50);

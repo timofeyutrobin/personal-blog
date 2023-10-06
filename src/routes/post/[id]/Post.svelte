@@ -14,15 +14,15 @@
 <style lang="scss">
     h1 {
         font-size: 2rem;
-        margin: 16px 0;
+        margin: indent(1) 0;
     }
     section > :global(p) {
-        margin-bottom: 24px;
+        margin-bottom: indent(3);
     }
 
     section > :global(img) {
         display: block;
         width: 80%;
-        margin: 16px auto;
+        margin: indent(2) auto;
     }
 </style>

@@ -17,16 +17,19 @@
 
 <style lang="scss">
     article {
-        padding: 24px;
-        background-color: #eee;
+        position: relative;
+
+        padding: indent(3);
+        background-color: $main-background-color;
     }
 
     h2 {
         font-size: 2rem;
+        margin-bottom: indent(1);
     }
 
     p {
-        margin: 24px 0;
+        margin-bottom: indent(1);
     }
 
     img {
