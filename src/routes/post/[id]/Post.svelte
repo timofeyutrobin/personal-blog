@@ -12,9 +12,13 @@
 </article>
 
 <style lang="scss">
+    article {
+        padding: indent(3);
+        background-color: $main-background-color;
+    }
     h1 {
         font-size: 2rem;
-        margin: indent(1) 0;
+        margin-bottom: indent(1);
     }
     section > :global(p) {
         margin-bottom: indent(3);

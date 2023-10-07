@@ -9,16 +9,14 @@
 
 <article>
     <h2><a href="/post/{id}">{title}</a></h2>
-    <p>{description}</p>
     {#if image}
         <img src={image.link} alt={image.alt}/>
     {/if}
+    <p>{description}</p>
 </article>
 
 <style lang="scss">
     article {
-        position: relative;
-
         padding: indent(3);
         background-color: $main-background-color;
     }
@@ -29,10 +27,12 @@
     }
 
     p {
-        margin-bottom: indent(1);
+        margin-top: indent(1);
     }
 
     img {
-        width: 70%;
+        width: 100%;
+        height: 500px;
+        object-fit: contain;
     }
 </style>

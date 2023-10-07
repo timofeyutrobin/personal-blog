@@ -11,8 +11,8 @@
 
 <style lang="scss">
     div {
-        width: 80%;
-        max-width: 1440px;
-        margin: 0 auto;
+        @include content-wrapper;
+
+        margin: indent(2) auto;
     }
 </style>

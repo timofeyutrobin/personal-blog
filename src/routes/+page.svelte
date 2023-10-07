@@ -11,7 +11,7 @@
 
 <style lang="scss">
     div {
-        width: 60%;
+        @include content-wrapper;
         margin: indent(2) auto;
     }
 </style>
