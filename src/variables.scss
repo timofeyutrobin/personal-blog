@@ -9,3 +9,7 @@ $main-background-color: #FFF;
 $border-color: #ddd;
 
 $text-color-primary: rgb(50, 50, 50);
+
+@mixin content-wrapper {
+  width: 60%;
+}
