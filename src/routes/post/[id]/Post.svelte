@@ -14,6 +14,7 @@
     article {
         padding: indent(3);
         background-color: $main-background-color;
+        @include default-box-shadow;
     }
     h1 {
         font-size: 2rem;

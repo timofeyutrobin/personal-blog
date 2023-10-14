@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Image } from '$lib/types/common';
+    import type { Image } from '$lib/types/common';
 
     export let id: string;
     export let title: string;
@@ -11,7 +11,7 @@
 <article>
     <h2><a href="/post/{id}">{title}</a></h2>
     {#if cover}
-        <img src={cover.src} alt={cover.alt}/>
+        <img src={cover.src} alt={cover.alt} />
     {/if}
     <p>{description}</p>
 </article>
@@ -20,6 +20,7 @@
     article {
         padding: indent(3);
         background-color: $main-background-color;
+        @include default-box-shadow;
     }
 
     h2 {
@@ -28,6 +29,7 @@
     }
 
     p {
+        font-size: 1.2rem;
         margin-top: indent(1);
     }
 

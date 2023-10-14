@@ -12,6 +12,6 @@
 <style lang="scss">
     div {
         @include content-wrapper;
-        margin: indent(2) auto;
+        margin: indent(4) auto;
     }
 </style>

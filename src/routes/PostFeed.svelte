@@ -20,6 +20,6 @@
 
 <style lang="scss">
     li {
-        margin-bottom: indent(2);
+        margin-bottom: indent(3);
     }
 </style>

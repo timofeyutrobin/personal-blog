@@ -1,11 +1,11 @@
 <script lang="ts">
-	import "../app.scss";
+    import '../app.scss';
     import Header from './Header.svelte';
 </script>
 
-<Header/>
+<Header />
 <main>
-    <slot/>
+    <slot />
 </main>
 
 <style lang="scss">

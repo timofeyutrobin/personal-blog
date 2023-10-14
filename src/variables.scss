@@ -1,15 +1,22 @@
 /* Variables and mixins declared here will be available in all other SCSS files */
 $base-indent: 8px;
 @function indent($multiplier) {
-  @return $base-indent * $multiplier;
+    @return $base-indent * $multiplier;
 }
 
-$body-background-color: rgb(240, 240, 240);
-$main-background-color: #FFF;
+$body-background-color: #fff;
+$main-background-color: #fff;
+$header-background-color: #fff;
 $border-color: #ddd;
+
+$hover-color: #8663de;
 
 $text-color-primary: rgb(50, 50, 50);
 
 @mixin content-wrapper {
-  width: 60%;
+    width: 55%;
+}
+
+@mixin default-box-shadow {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
 }
