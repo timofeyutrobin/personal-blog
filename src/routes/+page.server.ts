@@ -1,11 +1,9 @@
-import { postSnippets, type IPostSnippet } from '$lib/mocks/snippet';
+import { getPostSnippets } from '$lib/server/database/controllers/postController';
 
-export interface Data {
-    posts: IPostSnippet[];
-}
+export async function load() {
+    const posts = await getPostSnippets();
 
-export function load(): Data {
     return {
-        posts: postSnippets
+        posts
     };
 }

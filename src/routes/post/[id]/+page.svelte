@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { IPost } from '$lib/mocks/snippet';
+    import type { PageData } from './$types';
 	import Post from './Post.svelte';
 
-    export let data: IPost;
+    export let data: PageData;
 </script>
 
 <div>
-    <Post post={data}/>
+    <Post title={data.title} html={data.html}/>
 </div>
 
 <style lang="scss">

@@ -1,12 +1,12 @@
 <script lang="ts">
-    import type { Data } from './+page.server';
-	import PostFeed from './PostFeed.svelte';
+    import type { PageData } from './$types';
+    import PostFeed from './PostFeed.svelte';
 
-    export let data: Data;
+    export let data: PageData;
 </script>
 
 <div>
-    <PostFeed posts={data.posts}/>
+    <PostFeed posts={data.posts} />
 </div>
 
 <style lang="scss">

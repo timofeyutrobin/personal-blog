@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { IPostSnippet } from '$lib/mocks/snippet';
-	import PostSnippet from './PostSnippet.svelte';
+    import type { IPostSnippet } from '$lib/server/database/controllers/postController';
+    import PostSnippet from './PostSnippet.svelte';
 
     export let posts: IPostSnippet[];
 </script>
@@ -8,7 +8,12 @@
 <ul>
     {#each posts as post}
         <li>
-            <PostSnippet {...post}/>
+            <PostSnippet
+                title={post.title}
+                description={post.description}
+                id={post.id}
+                cover={post.cover}
+            />
         </li>
     {/each}
 </ul>

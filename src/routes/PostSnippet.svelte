@@ -4,13 +4,14 @@
     export let id: string;
     export let title: string;
     export let description: string;
-    export let image: Image | undefined = undefined;
+    export let cover: Image | null | undefined = undefined;
 </script>
 
+<!-- TODO: добавить slug вместо id -->
 <article>
     <h2><a href="/post/{id}">{title}</a></h2>
-    {#if image}
-        <img src={image.link} alt={image.alt}/>
+    {#if cover}
+        <img src={cover.src} alt={cover.alt}/>
     {/if}
     <p>{description}</p>
 </article>
@@ -34,5 +35,6 @@
         width: 100%;
         height: 500px;
         object-fit: contain;
+        object-position: left top;
     }
 </style>
