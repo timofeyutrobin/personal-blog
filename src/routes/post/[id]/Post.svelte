@@ -1,13 +1,12 @@
 <script lang="ts">
-	import type { IPost } from '$lib/mocks/snippet';
-
-    export let post: IPost;
+    export let title: string;
+    export let html: string;
 </script>
 
 <article>
-    <h1>{post.title}</h1>
+    <h1>{title}</h1>
     <section>
-        {@html post.html}
+        {@html html}
     </section>
 </article>
 
