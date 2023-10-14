@@ -1,11 +1,12 @@
 <script>
-	import Tabs from "./Tabs.svelte";
+    import Tabs from './Tabs.svelte';
 </script>
+
 <header>
     <div>
         <a href="/">Timofey Utrobin</a>
+        <Tabs />
     </div>
-    <Tabs/>
 </header>
 
 <style lang="scss">
@@ -20,21 +21,20 @@
         height: 60px;
         padding: 0 20px;
 
-        background-color: $main-background-color;
-
-        border-bottom: 1px solid $border-color;
+        background-color: $header-background-color;
     }
 
     div {
-        height: 100%;
-        margin-left: indent(2);
+        margin: auto indent(2);
 
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        align-items: baseline;
     }
 
     a {
         font-size: 2rem;
+        &:hover {
+            color: inherit;
+        }
     }
 </style>

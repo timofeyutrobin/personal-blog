@@ -20,9 +20,7 @@
     <ul>
         {#each Object.values(Tab) as tab}
             <li>
-                <a
-                    href={tabLinks[tab]}
-                >
+                <a href={tabLinks[tab]}>
                     {tabNames[tab]}
                 </a>
             </li>
@@ -31,10 +29,6 @@
 </nav>
 
 <style lang="scss">
-    nav {
-        height: 100%;
-    }
-
     ul {
         height: 100%;
         display: flex;
