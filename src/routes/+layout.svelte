@@ -4,12 +4,12 @@
 </script>
 
 <Header />
-<main>
+<div>
     <slot />
-</main>
+</div>
 
 <style lang="scss">
-    main {
+    div {
         position: absolute;
         top: 60px;
         width: 100%;

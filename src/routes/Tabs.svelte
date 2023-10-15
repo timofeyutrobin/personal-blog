@@ -17,20 +17,15 @@
 </script>
 
 <nav>
-    <ul>
-        {#each Object.values(Tab) as tab}
-            <li>
-                <a href={tabLinks[tab]}>
-                    {tabNames[tab]}
-                </a>
-            </li>
-        {/each}
-    </ul>
+    {#each Object.values(Tab) as tab}
+        <a href={tabLinks[tab]}>
+            {tabNames[tab]}
+        </a>
+    {/each}
 </nav>
 
 <style lang="scss">
-    ul {
-        height: 100%;
+    nav {
         display: flex;
         padding: 0 indent(3);
     }

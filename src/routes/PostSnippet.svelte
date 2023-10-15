@@ -18,6 +18,7 @@
 
 <style lang="scss">
     article {
+        margin-bottom: indent(3);
         padding: indent(3);
         background-color: $main-background-color;
         @include default-box-shadow;
