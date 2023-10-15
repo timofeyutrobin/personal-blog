@@ -5,12 +5,12 @@
     export let data: PageData;
 </script>
 
-<div>
+<main>
     <PostFeed posts={data.posts} />
-</div>
+</main>
 
 <style lang="scss">
-    div {
+    main {
         @include content-wrapper;
         margin: indent(4) auto;
     }
