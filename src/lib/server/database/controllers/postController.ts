@@ -3,8 +3,9 @@ import { ObjectId } from 'mongodb';
 import { db } from '..';
 
 export enum PostType {
-    FREE_LAYOUT,
-    SIMPLE
+    SIMPLE,
+    ONLY_PHOTOS,
+    FREE_LAYOUT
 }
 
 export interface IPost {
