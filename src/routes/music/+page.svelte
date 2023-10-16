@@ -1,4 +1,7 @@
 <script lang="ts">
+    import WaveSurfer from 'wavesurfer.js';
+    import { onMount } from 'svelte';
+
     import PauseIcon from './PauseIcon.svelte';
     import PlayIcon from './PlayIcon.svelte';
 
@@ -22,10 +25,16 @@
 
     let audioElement: HTMLMediaElement | null = null;
     let audioSource: MediaElementAudioSourceNode | null = null;
-    let currentTrackId: string | null = null;
+    let currentTrackId: keyof Tracks | null = null;
 
     let isPaused: boolean = true;
     let isPlayedOnce: boolean = false;
+
+    let waveforms: Record<keyof Tracks, WaveSurfer | null> = {
+        ii: null,
+        interference: null,
+        radioDream: null
+    };
 
     async function handlePlayClick(trackId: keyof Tracks): Promise<void> {
         if (!isPlayedOnce) {
@@ -33,10 +42,16 @@
         }
 
         if (trackId !== currentTrackId) {
-            if (audioSource) {
-                audioSource.disconnect(audioContext.destination);
+            if (currentTrackId) {
+                waveforms[currentTrackId]?.toggleInteraction(false);
             }
-            audioElement = new Audio(tracks[trackId].src);
+
+            if (audioSource && audioElement) {
+                audioSource.disconnect(audioContext.destination);
+                audioElement.pause();
+                audioElement.fastSeek(0);
+            }
+            audioElement = document.querySelector<HTMLMediaElement>(`#audio-${trackId}`)!;
             audioSource = audioContext.createMediaElementSource(audioElement);
             audioSource.connect(audioContext.destination);
 
@@ -51,35 +66,59 @@
             }
         }
 
+        waveforms[currentTrackId]?.toggleInteraction(true);
         isPaused = audioElement!.paused;
     }
 
     function listTracks() {
         return Object.entries(tracks) as [keyof Tracks, Tracks[keyof Tracks]][];
     }
+
+    onMount(() => {
+        listTracks().forEach(([trackId]) => {
+            waveforms[trackId] = WaveSurfer.create({
+                container: `#waveform-${trackId}`,
+                waveColor: '#4F4A85',
+                progressColor: '#383351',
+                media: document.querySelector<HTMLMediaElement>(`#audio-${trackId}`)!,
+                barWidth: 4,
+                height: 'auto',
+                normalize: true,
+                barRadius: 2,
+                barAlign: 'bottom',
+                barHeight: 10,
+                cursorWidth: 4,
+                dragToSeek: true,
+                interact: false
+            });
+        });
+    });
 </script>
 
 <main>
     <h1>My music</h1>
 
+    {#each listTracks() as [trackId, track]}
+        <audio id={`audio-${trackId}`} src={track.src} />
+    {/each}
+
     <div class="track-list">
         {#each listTracks() as [trackId, track]}
-            <div
-                class="track"
-                role="button"
-                tabindex={0}
-                aria-label="play"
-                on:click={() => handlePlayClick(trackId)}
-                on:keydown={(event) => event.key === 'Enter' && handlePlayClick(trackId)}
-            >
-                <i class={`play-icon ${trackId === currentTrackId ? 'current' : ''}`}>
+            <div class="track">
+                <button
+                    on:click={() => handlePlayClick(trackId)}
+                    class={`play-button ${trackId === currentTrackId ? 'current' : ''}`}
+                >
                     {#if (trackId === currentTrackId && isPaused) || !isPlayedOnce || trackId !== currentTrackId}
                         <PlayIcon />
                     {:else}
                         <PauseIcon />
                     {/if}
-                </i>
-                <h2 class="title">{track.title}</h2>
+                </button>
+                <div class="track-main-section">
+                    <h2 class="title">{track.title}</h2>
+                    <div class="waveform" id={`waveform-${trackId}`} />
+                </div>
             </div>
         {/each}
     </div>
@@ -108,7 +147,7 @@
         }
     }
 
-    .play-icon {
+    .play-button {
         cursor: pointer;
         border-radius: 50%;
         width: 50px;
@@ -150,8 +189,18 @@
         }
     }
 
+    .track-main-section {
+        flex-grow: 1;
+        margin-left: indent(2);
+    }
+
     .title {
         @include heading-medium;
-        margin-left: indent(2);
+    }
+
+    .waveform {
+        margin-top: indent(2);
+        height: 32px;
+        width: 300px;
     }
 </style>
