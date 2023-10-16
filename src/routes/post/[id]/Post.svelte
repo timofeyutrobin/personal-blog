@@ -12,12 +12,10 @@
 
 <style lang="scss">
     article {
-        padding: indent(3);
-        background-color: $main-background-color;
-        @include default-box-shadow;
+        @include sheet;
     }
     h1 {
-        font-size: 2rem;
+        @include heading-large;
         margin-bottom: indent(1);
     }
     section > :global(p) {

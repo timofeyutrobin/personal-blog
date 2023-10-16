@@ -18,14 +18,13 @@
 
 <style lang="scss">
     article {
+        @include sheet;
+
         margin-bottom: indent(3);
-        padding: indent(3);
-        background-color: $main-background-color;
-        @include default-box-shadow;
     }
 
     h2 {
-        font-size: 2rem;
+        @include heading-large;
         margin-bottom: indent(1);
     }
 
