@@ -4,7 +4,7 @@
 
 <header>
     <div>
-        <a href="/">Timofey Utrobin</a>
+        <a tabindex="-1" href="/">Timofey&nbsp;Utrobin</a>
         <Tabs />
     </div>
 </header>
@@ -33,8 +33,10 @@
 
     a {
         font-size: 2rem;
-        &:hover {
+        &:hover,
+        &:focus {
             color: inherit;
+            outline: none;
         }
     }
 </style>

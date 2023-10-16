@@ -12,14 +12,14 @@
     const tabNames: Record<Tab, string> = {
         photos: 'Photos',
         music: 'Music',
-        about: 'About me'
+        about: 'About&nbsp;me'
     };
 </script>
 
 <nav>
     {#each Object.values(Tab) as tab}
         <a href={tabLinks[tab]}>
-            {tabNames[tab]}
+            {@html tabNames[tab]}
         </a>
     {/each}
 </nav>

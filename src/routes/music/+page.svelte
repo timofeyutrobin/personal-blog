@@ -33,7 +33,7 @@
         }
 
         if (trackId !== currentTrackId) {
-            if (audioSource && audioElement) {
+            if (audioSource) {
                 audioSource.disconnect(audioContext.destination);
             }
             audioElement = new Audio(tracks[trackId].src);
@@ -62,18 +62,27 @@
 <main>
     <h1>My music</h1>
 
-    {#each listTracks() as [trackId, track]}
-        <article>
-            <button on:click={() => handlePlayClick(trackId)} aria-label="play">
-                {#if (trackId === currentTrackId && isPaused) || !isPlayedOnce || trackId !== currentTrackId}
-                    <PlayIcon />
-                {:else}
-                    <PauseIcon />
-                {/if}
-            </button>
-            <h2 class="title">{track.title}</h2>
-        </article>
-    {/each}
+    <div class="track-list">
+        {#each listTracks() as [trackId, track]}
+            <div
+                class="track"
+                role="button"
+                tabindex={0}
+                aria-label="play"
+                on:click={() => handlePlayClick(trackId)}
+                on:keydown={(event) => event.key === 'Enter' && handlePlayClick(trackId)}
+            >
+                <i class={`play-icon ${trackId === currentTrackId ? 'current' : ''}`}>
+                    {#if (trackId === currentTrackId && isPaused) || !isPlayedOnce || trackId !== currentTrackId}
+                        <PlayIcon />
+                    {:else}
+                        <PauseIcon />
+                    {/if}
+                </i>
+                <h2 class="title">{track.title}</h2>
+            </div>
+        {/each}
+    </div>
 </main>
 
 <style lang="scss">
@@ -88,18 +97,57 @@
         @include heading-large;
     }
 
-    article {
-        margin-top: indent(3);
-        display: flex;
-        align-items: center;
+    .track-list {
+        margin-top: indent(2);
     }
 
-    button {
+    @mixin active-icon {
+        @include default-box-shadow($shadow-alt-color);
+        :global(svg) {
+            color: $shadow-alt-color;
+        }
+    }
+
+    .play-icon {
         cursor: pointer;
         border-radius: 50%;
         width: 50px;
         height: 50px;
+        background-color: $main-background-color;
         @include default-box-shadow;
+        @include transition(box-shadow);
+        display: flex;
+
+        &.current {
+            @include active-icon;
+        }
+
+        :global(svg) {
+            width: 36px;
+            height: 36px;
+            margin: auto;
+            @include transition(color);
+        }
+    }
+
+    .track {
+        display: flex;
+        align-items: center;
+
+        padding: indent(2) indent(1);
+
+        cursor: pointer;
+
+        @include transition(background-color);
+
+        &:hover,
+        &:focus {
+            background-color: $hover-background-color;
+
+            .play-icon {
+                @include active-icon;
+            }
+        }
     }
 
     .title {

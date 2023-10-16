@@ -7,18 +7,23 @@ $base-indent: 8px;
 $body-background-color: #fff;
 $main-background-color: #fff;
 $header-background-color: #fff;
+$hover-background-color: rgba(134, 99, 222, 0.06);
+
 $border-color: #ddd;
 
-$hover-color: #8663de;
+$link-hover-color: #8663de;
+$shadow-color: rgba(0, 0, 0, 0.12);
+$shadow-alt-color: #8663de;
 
 $text-color-primary: rgb(50, 50, 50);
+$icon-color: rgb(70, 70, 70);
 
 @mixin content-wrapper {
     width: 55%;
 }
 
-@mixin default-box-shadow {
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+@mixin default-box-shadow($color: $shadow-color) {
+    box-shadow: 0 0 8px $color;
 }
 
 @mixin sheet {
@@ -33,4 +38,8 @@ $text-color-primary: rgb(50, 50, 50);
 
 @mixin heading-medium {
     font-size: 1.3rem;
+}
+
+@mixin transition($property) {
+    transition: $property 0.2s ease-in-out;
 }
