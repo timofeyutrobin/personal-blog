@@ -156,9 +156,11 @@ body {
 }
 
 a {
-    transition: color 0.2s ease-in-out;
-    &:hover {
-        color: $hover-color;
+    @include transition(color);
+    &:hover,
+    &:focus,
+    &:active {
+        color: $link-hover-color;
     }
 }
 
@@ -167,4 +169,5 @@ button {
     padding: 0;
     margin: 0;
     background: transparent;
+    outline: none;
 }
