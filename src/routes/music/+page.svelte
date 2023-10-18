@@ -8,15 +8,18 @@
     const tracks = {
         interference: {
             src: '/music/interference.mp3',
-            title: 'Вмешательство'
+            title: 'Вмешательство',
+            cover: '/images/covers/interference_cover.jpeg'
         },
         ii: {
             src: '/music/II.mp3',
-            title: 'II'
+            title: 'II',
+            cover: '/images/covers/ii_cover.jpeg'
         },
         radioDream: {
             src: '/music/radiodream.mp3',
-            title: 'Радиомечта'
+            title: 'Радиомечта',
+            cover: '/images/covers/radiodream_cover.jpeg'
         }
     };
     type Tracks = typeof tracks;
@@ -34,6 +37,11 @@
         ii: null,
         interference: null,
         radioDream: null
+    };
+    let waveformsLoading: Record<keyof Tracks, boolean> = {
+        ii: false,
+        interference: false,
+        radioDream: false
     };
 
     async function handlePlayClick(trackId: keyof Tracks): Promise<void> {
@@ -91,6 +99,12 @@
                 dragToSeek: true,
                 interact: false
             });
+            waveforms[trackId]!.on('loading', () => {
+                waveformsLoading[trackId] = true;
+            });
+            waveforms[trackId]!.on('ready', () => {
+                waveformsLoading[trackId] = false;
+            });
         });
     });
 </script>
@@ -105,19 +119,24 @@
     <div class="track-list">
         {#each listTracks() as [trackId, track]}
             <div class="track">
-                <button
-                    on:click={() => handlePlayClick(trackId)}
-                    class={`play-button ${trackId === currentTrackId ? 'current' : ''}`}
-                >
-                    {#if (trackId === currentTrackId && isPaused) || !isPlayedOnce || trackId !== currentTrackId}
-                        <PlayIcon />
-                    {:else}
-                        <PauseIcon />
-                    {/if}
-                </button>
+                <div class="cover" style={`background-image: url(${track.cover})`}>
+                    <button
+                        on:click={() => handlePlayClick(trackId)}
+                        class={`play-button ${trackId === currentTrackId ? 'current' : ''}`}
+                    >
+                        {#if (trackId === currentTrackId && isPaused) || !isPlayedOnce || trackId !== currentTrackId}
+                            <PlayIcon />
+                        {:else}
+                            <PauseIcon />
+                        {/if}
+                    </button>
+                </div>
                 <div class="track-main-section">
                     <h2 class="title">{track.title}</h2>
                     <div class="waveform" id={`waveform-${trackId}`} />
+                    {#if waveformsLoading[trackId]}
+                        <div class={`waveform-loader waveform-loader-loading`}>Loading...</div>
+                    {/if}
                 </div>
             </div>
         {/each}
@@ -125,6 +144,13 @@
 </main>
 
 <style lang="scss">
+    @mixin active-button {
+        @include default-box-shadow($shadow-alt-color);
+        :global(svg) {
+            color: $shadow-alt-color;
+        }
+    }
+
     main {
         @include content-wrapper;
         @include sheet;
@@ -140,14 +166,17 @@
         margin-top: indent(2);
     }
 
-    @mixin active-icon {
-        @include default-box-shadow($shadow-alt-color);
-        :global(svg) {
-            color: $shadow-alt-color;
-        }
+    .cover {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        background-size: cover;
     }
 
     .play-button {
+        position: absolute;
+        bottom: indent(1);
+        right: indent(1);
         cursor: pointer;
         border-radius: 50%;
         width: 50px;
@@ -158,7 +187,7 @@
         display: flex;
 
         &.current {
-            @include active-icon;
+            @include active-button;
         }
 
         :global(svg) {
@@ -167,26 +196,21 @@
             margin: auto;
             @include transition(color);
         }
+
+        &:hover,
+        &:focus,
+        &:active {
+            @include active-button;
+        }
     }
 
     .track {
         display: flex;
         align-items: center;
 
-        padding: indent(2) indent(1);
-
-        cursor: pointer;
+        padding: indent(2) 0;
 
         @include transition(background-color);
-
-        &:hover,
-        &:focus {
-            background-color: $hover-background-color;
-
-            .play-icon {
-                @include active-icon;
-            }
-        }
     }
 
     .track-main-section {
@@ -202,5 +226,6 @@
         margin-top: indent(2);
         height: 32px;
         width: 300px;
+        cursor: pointer;
     }
 </style>
