@@ -5,6 +5,10 @@
     export let data: PageData;
 </script>
 
+<svelte:head>
+    <title>Timofey Utrobin</title>
+</svelte:head>
+
 <main>
     <PostFeed posts={data.posts} />
 </main>
