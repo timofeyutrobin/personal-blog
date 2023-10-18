@@ -20,6 +20,7 @@ $icon-color: rgb(70, 70, 70);
 
 @mixin content-wrapper {
     width: 55%;
+    min-width: 640px;
 }
 
 @mixin default-box-shadow($color: $shadow-color) {
