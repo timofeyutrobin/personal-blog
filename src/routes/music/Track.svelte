@@ -29,10 +29,15 @@
     </div>
     <div class="track-main-section">
         <h2 class="title">{title}</h2>
-        <div class="waveform" id={`waveform-${id}`} />
-        {#if isWaveformLoading}
-            <div class={`waveform-loader waveform-loader-loading`}>Loading...</div>
-        {/if}
+        <div>
+            <div
+                class={`waveform ${isWaveformLoading ? 'waveform-loading' : ''}`}
+                id={`waveform-${id}`}
+            />
+            {#if isWaveformLoading}
+                <div class="waveform-loader">Loading...</div>
+            {/if}
+        </div>
     </div>
 </div>
 
@@ -100,10 +105,17 @@
         @include heading-medium;
     }
 
+    $waveform-height: 32px;
+
     .waveform {
         margin-top: indent(2);
-        height: 32px;
+        height: $waveform-height;
         width: 300px;
         cursor: pointer;
+    }
+
+    .waveform-loader {
+        margin-top: -$waveform-height;
+        height: $waveform-height;
     }
 </style>
