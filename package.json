@@ -29,6 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"just-throttle": "4.2.0",
 		"mongodb": "6.1.0",
 		"wavesurfer.js": "7.3.8"
 	}

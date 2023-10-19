@@ -2,6 +2,8 @@
     export let id: T;
     export let title: string;
     export let cover: string;
+    export let currentTimeSec: number | undefined = undefined;
+    export let totalTime: string;
 
     export let isCurrent: boolean;
     export let isPaused: boolean;
@@ -12,6 +14,18 @@
 
     import PauseIcon from './PauseIcon.svelte';
     import PlayIcon from './PlayIcon.svelte';
+
+    let currentTimeDisplay: string;
+
+    $: {
+        if (!currentTimeSec || !isCurrent) {
+            currentTimeDisplay = '0:00';
+        } else {
+            const minutes = Math.floor(currentTimeSec / 60);
+            const seconds = Math.floor(currentTimeSec) % 60;
+            currentTimeDisplay = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        }
+    }
 </script>
 
 <div class="track">
@@ -29,14 +43,16 @@
     </div>
     <div class="track-main-section">
         <h2 class="title">{title}</h2>
-        <div>
-            <div
-                class={`waveform ${isWaveformLoading ? 'waveform-loading' : ''}`}
-                id={`waveform-${id}`}
-            />
-            {#if isWaveformLoading}
-                <div class="waveform-loader">Loading...</div>
-            {/if}
+        <div
+            class={`waveform ${isWaveformLoading ? 'waveform-loading' : ''}`}
+            id={`waveform-${id}`}
+        />
+        {#if isWaveformLoading}
+            <div class="waveform-loader">Loading...</div>
+        {/if}
+        <div class="time">
+            <span class="current-time">{currentTimeDisplay}</span>
+            <span class="total-time">{totalTime}</span>
         </div>
     </div>
 </div>
@@ -117,5 +133,12 @@
     .waveform-loader {
         margin-top: -$waveform-height;
         height: $waveform-height;
+    }
+
+    .time {
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
     }
 </style>

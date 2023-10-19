@@ -1,5 +1,6 @@
 <script lang="ts">
     import WaveSurfer from 'wavesurfer.js';
+    import throttle from 'just-throttle';
     import { onMount } from 'svelte';
     import Track from './Track.svelte';
 
@@ -7,17 +8,20 @@
         interference: {
             src: '/music/interference.mp3',
             title: 'Вмешательство',
-            cover: '/images/covers/interference_cover.jpeg'
+            cover: '/images/covers/interference_cover.jpeg',
+            duration: '6:18'
         },
         ii: {
             src: '/music/II.mp3',
             title: 'II',
-            cover: '/images/covers/ii_cover.jpeg'
+            cover: '/images/covers/ii_cover.jpeg',
+            duration: '4:35'
         },
         radioDream: {
             src: '/music/radiodream.mp3',
             title: 'Радиомечта',
-            cover: '/images/covers/radiodream_cover.jpeg'
+            cover: '/images/covers/radiodream_cover.jpeg',
+            duration: '7:53'
         }
     };
     type Tracks = typeof tracks;
@@ -29,6 +33,8 @@
     let audioSource: MediaElementAudioSourceNode | null = null;
     let currentTrackId: keyof Tracks | null = null;
     let currentTrackIndex: number = -1;
+
+    let currentTime: number;
 
     let isPaused: boolean = true;
     let isMusicOpen: boolean = false;
@@ -65,6 +71,7 @@
         if (!currentTrackId || !audioSource || !audioElement) {
             return;
         }
+        currentTime = 0;
         waveforms[currentTrackId]?.toggleInteraction(false);
         audioSource.disconnect(audioContext.destination);
         audioElement.pause();
@@ -98,13 +105,17 @@
         isPaused = audioElement!.paused;
     }
 
-    async function onTrackEnd() {
+    async function handleTrackEnd(): Promise<void> {
         stopCurrentTrack();
         const newTrackIndex = currentTrackIndex + 1 < trackList.length ? currentTrackIndex + 1 : 0;
         const nextTrackId = trackList[newTrackIndex];
 
-        await playNewTrack(nextTrackId);
+        return playNewTrack(nextTrackId);
     }
+
+    const handleTimeUpdate = throttle((event: Event) => {
+        currentTime = (event.target as HTMLAudioElement).currentTime;
+    }, 1000);
 
     onMount(() => {
         trackList.forEach((trackId) => {
@@ -136,13 +147,15 @@
 </script>
 
 <main>
-    {#each trackList as trackId}
-        <audio id={`audio-${trackId}`} src={tracks[trackId].src} on:ended={onTrackEnd} />
-    {/each}
-
     <h1>My music</h1>
     <div class="track-list">
         {#each trackList as trackId}
+            <audio
+                id={`audio-${trackId}`}
+                src={tracks[trackId].src}
+                on:ended={handleTrackEnd}
+                on:timeupdate={handleTimeUpdate}
+            />
             <Track
                 id={trackId}
                 title={tracks[trackId].title}
@@ -152,6 +165,8 @@
                 isWaveformLoading={waveformsLoading[trackId]}
                 {isPaused}
                 {handlePlayClick}
+                totalTime={tracks[trackId].duration}
+                currentTimeSec={currentTime}
             />
         {/each}
     </div>
