@@ -14,6 +14,7 @@
 
     import PauseIcon from './PauseIcon.svelte';
     import PlayIcon from './PlayIcon.svelte';
+    import Progress from '@smui/linear-progress';
 
     let currentTimeDisplay: string;
 
@@ -43,12 +44,11 @@
     </div>
     <div class="track-main-section">
         <h2 class="title">{title}</h2>
-        <div
-            class={`waveform ${isWaveformLoading ? 'waveform-loading' : ''}`}
-            id={`waveform-${id}`}
-        />
+        <div class="waveform" id={`waveform-${id}`} />
         {#if isWaveformLoading}
-            <div class="waveform-loader">Loading...</div>
+            <div class="waveform-loader-container">
+                <Progress class="waveform-loader" indeterminate />
+            </div>
         {/if}
         <div class="time">
             <span class="current-time">{currentTimeDisplay}</span>
@@ -122,21 +122,30 @@
     }
 
     $waveform-height: 32px;
+    $waveform-width: 300px;
 
     .waveform {
         margin-top: indent(2);
         height: $waveform-height;
-        width: 300px;
+        width: $waveform-width;
         cursor: pointer;
     }
 
-    .waveform-loader {
+    .waveform-loader-container {
         margin-top: -$waveform-height;
         height: $waveform-height;
+        width: $waveform-width;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .waveform-loader {
+        width: 100%;
     }
 
     .time {
-        width: 300px;
+        width: $waveform-width;
         display: flex;
         justify-content: space-between;
         font-size: 0.85rem;

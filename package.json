@@ -14,6 +14,7 @@
         "smui-theme": "smui-theme compile static/smui.css -i src/theme"
     },
     "devDependencies": {
+        "@smui/linear-progress": "7.0.0-beta.15",
         "@smui/slider": "7.0.0-beta.15",
         "@sveltejs/adapter-auto": "2.1.0",
         "@sveltejs/kit": "1.25.1",
