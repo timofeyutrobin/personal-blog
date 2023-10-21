@@ -1,0 +1,6 @@
+@use '@material/theme/index' as theme with (
+    $primary: #8663de,
+    $secondary: rgba(65, 48, 109, 0.1),
+    $surface: #fff,
+    $error: #b00020
+);
