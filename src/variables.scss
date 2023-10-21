@@ -7,7 +7,7 @@ $base-indent: 8px;
 $body-background-color: #fff;
 $main-background-color: #fff;
 $header-background-color: #fff;
-$hover-background-color: rgba(134, 99, 222, 0.06);
+$hover-background-color: rgba(65, 48, 109, 0.06);
 
 $border-color: #ddd;
 
@@ -17,6 +17,8 @@ $shadow-alt-color: #8663de;
 
 $text-color-primary: rgb(50, 50, 50);
 $icon-color: rgb(70, 70, 70);
+
+$control-background-color: rgba(65, 48, 109, 0.1);
 
 @mixin content-wrapper {
     width: 55%;

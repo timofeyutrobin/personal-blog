@@ -1,36 +1,40 @@
 {
-	"name": "personal-blog",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-auto": "2.1.0",
-		"@sveltejs/kit": "1.25.1",
-		"@typescript-eslint/eslint-plugin": "5.45.0",
-		"@typescript-eslint/parser": "^5.45.0",
-		"eslint": "8.28.0",
-		"eslint-config-prettier": "8.5.0",
-		"prettier": "3.0.3",
-		"prettier-plugin-svelte": "3.0.3",
-		"sass": "1.63.6",
-		"svelte": "4.2.1",
-		"svelte-check": "3.5.2",
-		"tslib": "2.6.2",
-		"typescript": "5.2.2",
-		"vite": "4.4.9"
-	},
-	"type": "module",
-	"dependencies": {
-		"just-throttle": "4.2.0",
-		"mongodb": "6.1.0",
-		"wavesurfer.js": "7.3.8"
-	}
+    "name": "personal-blog",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "dev": "vite dev",
+        "build": "vite build",
+        "preview": "vite preview",
+        "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+        "lint": "prettier --plugin-search-dir . --check . && eslint .",
+        "format": "prettier --plugin-search-dir . --write .",
+        "prepare": "npm run smui-theme",
+        "smui-theme": "smui-theme compile static/smui.css -i src/theme"
+    },
+    "devDependencies": {
+        "@smui/slider": "7.0.0-beta.15",
+        "@sveltejs/adapter-auto": "2.1.0",
+        "@sveltejs/kit": "1.25.1",
+        "@typescript-eslint/eslint-plugin": "5.45.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "eslint": "8.28.0",
+        "eslint-config-prettier": "8.5.0",
+        "prettier": "3.0.3",
+        "prettier-plugin-svelte": "3.0.3",
+        "sass": "1.63.6",
+        "smui-theme": "7.0.0-beta.15",
+        "svelte": "4.2.1",
+        "svelte-check": "3.5.2",
+        "tslib": "2.6.2",
+        "typescript": "5.2.2",
+        "vite": "4.4.9"
+    },
+    "type": "module",
+    "dependencies": {
+        "just-throttle": "4.2.0",
+        "mongodb": "6.1.0",
+        "wavesurfer.js": "7.3.8"
+    }
 }

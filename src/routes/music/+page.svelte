@@ -3,6 +3,9 @@
     import throttle from 'just-throttle';
     import { onMount } from 'svelte';
     import Track from './Track.svelte';
+    import UnmuteIcon from './UnmuteIcon.svelte';
+    import MuteIcon from './MuteIcon.svelte';
+    import Slider from '@smui/slider';
 
     const tracks = {
         interference: {
@@ -28,6 +31,8 @@
     const trackList = Object.keys(tracks) as (keyof Tracks)[];
 
     const audioContext = new AudioContext();
+    const gainNode = audioContext.createGain();
+    gainNode.connect(audioContext.destination);
 
     let audioElement: HTMLMediaElement | null = null;
     let audioSource: MediaElementAudioSourceNode | null = null;
@@ -38,6 +43,10 @@
 
     let isPaused: boolean = true;
     let isMusicOpen: boolean = false;
+    let isMuted: boolean = false;
+    $: isMuted = gainNode.gain.value === 0;
+
+    let volumeBeforeMute = gainNode.gain.value;
 
     let waveforms: Record<keyof Tracks, WaveSurfer | null> = {
         ii: null,
@@ -58,7 +67,7 @@
         }
 
         audioSource = audioContext.createMediaElementSource(audioElement);
-        audioSource.connect(audioContext.destination);
+        audioSource.connect(gainNode);
 
         await audioElement.play();
 
@@ -73,7 +82,7 @@
         }
         currentTime = 0;
         waveforms[currentTrackId]?.toggleInteraction(false);
-        audioSource.disconnect(audioContext.destination);
+        audioSource.disconnect(gainNode);
         audioElement.pause();
         audioElement.fastSeek(0);
     }
@@ -148,6 +157,32 @@
 
 <main>
     <h1>My music</h1>
+    <div class="controls">
+        <Slider
+            class="volume-slider"
+            step={0.05}
+            min={0}
+            max={1}
+            bind:value={gainNode.gain.value}
+        />
+        <button
+            class="mute-button"
+            on:click={() => {
+                if (isMuted) {
+                    gainNode.gain.value = volumeBeforeMute;
+                } else {
+                    volumeBeforeMute = gainNode.gain.value;
+                    gainNode.gain.value = 0;
+                }
+            }}
+        >
+            {#if isMuted}
+                <UnmuteIcon />
+            {:else}
+                <MuteIcon />
+            {/if}
+        </button>
+    </div>
     <div class="track-list">
         {#each trackList as trackId}
             <audio
@@ -174,6 +209,7 @@
 
 <style lang="scss">
     main {
+        position: relative;
         @include content-wrapper;
         @include sheet;
 
@@ -184,7 +220,36 @@
         @include heading-large;
     }
 
+    .mute-button {
+        width: 32px;
+        height: 32px;
+        padding: 4px;
+        border-radius: 50%;
+
+        @include transition(background-color);
+
+        cursor: pointer;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: $hover-background-color;
+        }
+    }
+
     .track-list {
         margin-top: indent(2);
+    }
+
+    .controls {
+        position: absolute;
+        top: indent(3);
+        right: indent(3);
+        display: flex;
+        align-items: center;
+    }
+
+    :global(.volume-slider) {
+        width: 150px;
     }
 </style>
