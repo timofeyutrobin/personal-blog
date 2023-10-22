@@ -10,11 +10,14 @@
     export let isMusicOpen: boolean;
     export let isWaveformLoading: boolean;
 
+    export let analyser: AnalyserNode;
+
     export let handlePlayClick: (id: T) => Promise<void>;
 
     import PauseIcon from './PauseIcon.svelte';
     import PlayIcon from './PlayIcon.svelte';
     import Progress from '@smui/linear-progress';
+    import Visualizer from './Visualizer.svelte';
 
     let currentTimeDisplay: string;
 
@@ -31,9 +34,15 @@
 
 <div class="track">
     <div class="cover" style={`background-image: url(${cover})`}>
+        {#if isCurrent}
+            <div class="visualizer">
+                <Visualizer width={200} height={200} {analyser} />
+            </div>
+        {/if}
         <button
             on:click={() => handlePlayClick(id)}
             class={`play-button ${isCurrent ? 'current' : ''}`}
+            disabled={isWaveformLoading}
         >
             {#if (isCurrent && isPaused) || !isMusicOpen || !isCurrent}
                 <PlayIcon />
@@ -104,6 +113,7 @@
     }
 
     .track {
+        position: relative;
         display: flex;
         align-items: center;
 
@@ -113,7 +123,6 @@
     }
 
     .track-main-section {
-        flex-grow: 1;
         margin-left: indent(2);
     }
 
@@ -149,5 +158,13 @@
         display: flex;
         justify-content: space-between;
         font-size: 0.85rem;
+    }
+
+    .visualizer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 200px;
+        height: 200px;
     }
 </style>
