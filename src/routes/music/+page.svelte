@@ -31,14 +31,8 @@
     const trackList = Object.keys(tracks) as (keyof Tracks)[];
 
     const audioContext = new AudioContext();
-    const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 64;
-    analyser.minDecibels = -90;
-    analyser.maxDecibels = -10;
-    analyser.smoothingTimeConstant = 0.95;
     const gainNode = audioContext.createGain();
 
-    analyser.connect(gainNode);
     gainNode.connect(audioContext.destination);
 
     let audioElement: HTMLMediaElement | null = null;
@@ -74,7 +68,7 @@
         }
 
         audioSource = audioContext.createMediaElementSource(audioElement);
-        audioSource.connect(analyser);
+        audioSource.connect(gainNode);
 
         await audioElement.play();
 
@@ -89,7 +83,7 @@
         }
         currentTime = 0;
         waveforms[currentTrackId]?.toggleInteraction(false);
-        audioSource.disconnect(analyser);
+        audioSource.disconnect(gainNode);
         audioElement.pause();
         audioElement.fastSeek(0);
     }
@@ -209,7 +203,6 @@
                 {handlePlayClick}
                 totalTime={tracks[trackId].duration}
                 currentTimeSec={currentTime}
-                {analyser}
             />
         {/each}
     </div>
