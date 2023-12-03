@@ -20,9 +20,16 @@ $icon-color: rgb(70, 70, 70);
 
 $control-background-color: rgba(65, 48, 109, 0.1);
 
+$content-min-height: 640px;
+
 @mixin content-wrapper {
     width: 55%;
-    min-width: 640px;
+    min-width: $content-min-height;
+
+    @include mobile {
+        width: 100%;
+        min-width: initial;
+    }
 }
 
 @mixin default-box-shadow($color: $shadow-color) {
@@ -33,6 +40,30 @@ $control-background-color: rgba(65, 48, 109, 0.1);
     padding: indent(3);
     background-color: $main-background-color;
     @include default-box-shadow;
+
+    @include mobile {
+        width: 100%;
+        box-shadow: none;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+@mixin button($width, $height) {
+    width: $width;
+    height: $height;
+    padding: 4px;
+    border-radius: 50%;
+
+    @include transition(background-color);
+
+    cursor: pointer;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: $hover-background-color;
+    }
 }
 
 @mixin heading-large {
@@ -45,4 +76,12 @@ $control-background-color: rgba(65, 48, 109, 0.1);
 
 @mixin transition($property) {
     transition: $property 0.2s ease-in-out;
+}
+
+/* ---------- Adaptivity ---------- */
+
+@mixin mobile {
+    @media screen and (max-width: calc($content-min-height + indent(8))) {
+        @content;
+    }
 }

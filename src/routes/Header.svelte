@@ -19,7 +19,7 @@
 
         width: 100%;
         height: 60px;
-        padding: 0 20px;
+        padding: 0 indent(3);
 
         background-color: $header-background-color;
     }
@@ -37,6 +37,12 @@
         &:focus {
             color: inherit;
             outline: none;
+        }
+    }
+
+    @include mobile {
+        div {
+            margin: auto 0;
         }
     }
 </style>

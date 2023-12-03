@@ -44,7 +44,6 @@
 
     let isPaused: boolean = true;
     let isMusicOpen: boolean = false;
-    let isMuted: boolean = false;
     $: isMuted = gainNode.gain.value === 0;
 
     let volumeBeforeMute = gainNode.gain.value;
@@ -222,20 +221,7 @@
     }
 
     .mute-button {
-        width: 32px;
-        height: 32px;
-        padding: 4px;
-        border-radius: 50%;
-
-        @include transition(background-color);
-
-        cursor: pointer;
-
-        &:hover,
-        &:focus,
-        &:active {
-            background-color: $hover-background-color;
-        }
+        @include button(32px, 32px);
     }
 
     .track-list {
