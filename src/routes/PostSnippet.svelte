@@ -39,4 +39,13 @@
         object-fit: contain;
         object-position: left top;
     }
+
+    @include mobile {
+        img {
+            height: auto;
+        }
+        article {
+            margin-bottom: indent(5);
+        }
+    }
 </style>
