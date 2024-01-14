@@ -12,8 +12,8 @@
 
     export let handlePlayClick: (id: T) => Promise<void>;
 
-    import PauseIcon from './PauseIcon.svelte';
-    import PlayIcon from './PlayIcon.svelte';
+    import PauseIcon from './icons/PauseIcon.svelte';
+    import PlayIcon from './icons/PlayIcon.svelte';
     import Progress from '@smui/linear-progress';
     import Bars from './Bars.svelte';
 
