@@ -3,8 +3,8 @@
     import throttle from 'just-throttle';
     import { onMount } from 'svelte';
     import Track from './Track.svelte';
-    import UnmuteIcon from './UnmuteIcon.svelte';
-    import MuteIcon from './MuteIcon.svelte';
+    import UnmuteIcon from './icons/UnmuteIcon.svelte';
+    import MuteIcon from './icons/MuteIcon.svelte';
     import Slider from '@smui/slider';
 
     const tracks = {
@@ -158,13 +158,6 @@
 <main>
     <h1>My music</h1>
     <div class="controls">
-        <Slider
-            class="volume-slider"
-            step={0.05}
-            min={0}
-            max={1}
-            bind:value={gainNode.gain.value}
-        />
         <button
             class="mute-button"
             on:click={() => {
@@ -182,6 +175,13 @@
                 <MuteIcon />
             {/if}
         </button>
+        <Slider
+            class="volume-slider"
+            step={0.05}
+            min={0}
+            max={1}
+            bind:value={gainNode.gain.value}
+        />
     </div>
     <div class="track-list">
         {#each trackList as trackId}
