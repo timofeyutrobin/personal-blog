@@ -1,6 +1,5 @@
 <script lang="ts">
-    export let title: string;
-    export let html: string;
+    let { title, html }: { title: string; html: string } = $props();
 </script>
 
 <article>

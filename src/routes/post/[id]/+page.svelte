@@ -1,8 +1,7 @@
 <script lang="ts">
-    import type { PageData } from './$types';
     import Post from './Post.svelte';
 
-    export let data: PageData;
+    let { data } = $props();
 </script>
 
 <div>

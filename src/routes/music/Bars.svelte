@@ -1,11 +1,11 @@
 <script lang="ts">
-    export let isPlaying: boolean;
+    let { isPlaying }: { isPlaying: boolean } = $props();
 </script>
 
-<div class={`bars-container ${isPlaying ? 'bars-playing' : 'bars-paused'}`}>
-    <div class="bar bar-1" />
-    <div class="bar bar-2" />
-    <div class="bar bar-3" />
+<div class="bars-container {isPlaying ? 'bars-playing' : 'bars-paused'}">
+    <div class="bar bar-1"></div>
+    <div class="bar bar-2"></div>
+    <div class="bar bar-3"></div>
 </div>
 
 <style lang="scss">

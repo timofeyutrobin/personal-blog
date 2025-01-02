@@ -1,10 +1,12 @@
 <script lang="ts">
     import type { Image } from '$lib/types/common';
 
-    export let id: string;
-    export let title: string;
-    export let description: string;
-    export let cover: Image | null | undefined = undefined;
+    let {
+        id,
+        title,
+        description,
+        cover
+    }: { id: string; title: string; description: string; cover?: Image | null } = $props();
 </script>
 
 <!-- TODO: добавить slug вместо id -->
