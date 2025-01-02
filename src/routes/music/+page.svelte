@@ -7,20 +7,24 @@
     import MuteIcon from './icons/MuteIcon.svelte';
     import Slider from '@smui/slider';
 
+    // TODO: убрать отсюда
     const tracks = {
         interference: {
+            index: 0,
             src: '/music/interference.mp3',
             title: 'Вмешательство',
             cover: '/images/covers/interference_cover.jpeg',
             duration: '6:18'
         },
         ii: {
+            index: 1,
             src: '/music/II.mp3',
             title: 'II',
             cover: '/images/covers/ii_cover.jpeg',
             duration: '4:35'
         },
         radioDream: {
+            index: 2,
             src: '/music/radiodream.mp3',
             title: 'Радиомечта',
             cover: '/images/covers/radiodream_cover.jpeg',
@@ -32,21 +36,24 @@
 
     const audioContext = new AudioContext();
     const gainNode = audioContext.createGain();
-
     gainNode.connect(audioContext.destination);
+    let volume = $state(gainNode.gain.value);
+    $effect(() => {
+        gainNode.gain.value = volume;
+    });
 
-    let audioElement: HTMLMediaElement | null = null;
-    let audioSource: MediaElementAudioSourceNode | null = null;
-    let currentTrackId: keyof Tracks | null = null;
-    let currentTrackIndex: number = -1;
+    let audioElement: HTMLMediaElement | null = $state(null);
+    let audioSource: MediaElementAudioSourceNode | null = $state(null);
 
-    let currentTime: number;
+    let currentTrackId = $state<keyof Tracks | null>(null);
+    let currentTrackIndex = $derived(currentTrackId ? tracks[currentTrackId].index : 0);
 
-    let isPaused: boolean = true;
-    let isMusicOpen: boolean = false;
-    $: isMuted = gainNode.gain.value === 0;
+    let currentTime = $state(0);
 
-    let volumeBeforeMute = gainNode.gain.value;
+    let isPaused = $state(true);
+    let isMuted = $derived(volume === 0);
+
+    let volumeBeforeMute = $state(gainNode.gain.value);
 
     let waveforms: Record<keyof Tracks, WaveSurfer | null> = {
         ii: null,
@@ -72,7 +79,6 @@
         await audioElement.play();
 
         currentTrackId = trackId;
-        currentTrackIndex = trackList.findIndex((id) => currentTrackId === id);
         waveforms[currentTrackId]?.toggleInteraction(true);
     }
 
@@ -95,11 +101,7 @@
         return audioElement!.play();
     }
 
-    async function handlePlayClick(trackId: keyof Tracks): Promise<void> {
-        if (!isMusicOpen) {
-            isMusicOpen = true;
-        }
-
+    async function onplay(trackId: keyof Tracks): Promise<void> {
         if (trackId !== currentTrackId) {
             stopCurrentTrack();
             await playNewTrack(trackId);
@@ -114,15 +116,15 @@
         isPaused = audioElement!.paused;
     }
 
-    async function handleTrackEnd(): Promise<void> {
+    async function onended(): Promise<void> {
         stopCurrentTrack();
-        const newTrackIndex = currentTrackIndex + 1 < trackList.length ? currentTrackIndex + 1 : 0;
-        const nextTrackId = trackList[newTrackIndex];
+        const nextTrackIndex = currentTrackIndex + 1 < trackList.length ? currentTrackIndex + 1 : 0;
+        const nextTrackId = trackList[nextTrackIndex];
 
         return playNewTrack(nextTrackId);
     }
 
-    const handleTimeUpdate = throttle((event: Event) => {
+    const ontimeupdate = throttle((event: Event) => {
         currentTime = (event.target as HTMLAudioElement).currentTime;
     }, 1000);
 
@@ -160,12 +162,12 @@
     <div class="controls">
         <button
             class="mute-button"
-            on:click={() => {
+            onclick={() => {
                 if (isMuted) {
-                    gainNode.gain.value = volumeBeforeMute;
+                    volume = volumeBeforeMute;
                 } else {
-                    volumeBeforeMute = gainNode.gain.value;
-                    gainNode.gain.value = 0;
+                    volumeBeforeMute = volume;
+                    volume = 0;
                 }
             }}
         >
@@ -175,31 +177,19 @@
                 <MuteIcon />
             {/if}
         </button>
-        <Slider
-            class="volume-slider"
-            step={0.05}
-            min={0}
-            max={1}
-            bind:value={gainNode.gain.value}
-        />
+        <Slider class="volume-slider" step={0.05} min={0} max={1} bind:value={volume} />
     </div>
     <div class="track-list">
         {#each trackList as trackId}
-            <audio
-                id={`audio-${trackId}`}
-                src={tracks[trackId].src}
-                on:ended={handleTrackEnd}
-                on:timeupdate={handleTimeUpdate}
-            />
+            <audio id="audio-{trackId}" src={tracks[trackId].src} {onended} {ontimeupdate}></audio>
             <Track
                 id={trackId}
                 title={tracks[trackId].title}
                 cover={tracks[trackId].cover}
                 isCurrent={trackId === currentTrackId}
-                {isMusicOpen}
                 isWaveformLoading={waveformsLoading[trackId]}
                 {isPaused}
-                {handlePlayClick}
+                {onplay}
                 totalTime={tracks[trackId].duration}
                 currentTimeSec={currentTime}
             />

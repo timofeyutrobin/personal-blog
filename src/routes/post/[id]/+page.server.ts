@@ -5,7 +5,7 @@ export async function load({ params }) {
     const post = await getPost(params.id);
 
     if (!post) {
-        throw error(404);
+        error(404);
     }
 
     return post;

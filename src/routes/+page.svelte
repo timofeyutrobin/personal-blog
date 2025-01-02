@@ -1,8 +1,7 @@
 <script lang="ts">
-    import type { PageData } from './$types';
     import PostFeed from './PostFeed.svelte';
 
-    export let data: PageData;
+    let { data } = $props();
 </script>
 
 <svelte:head>

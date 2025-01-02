@@ -1,48 +1,56 @@
 <script lang="ts" generics="T extends string">
-    export let id: T;
-    export let title: string;
-    export let cover: string;
-    export let currentTimeSec: number | undefined = undefined;
-    export let totalTime: string;
-
-    export let isCurrent: boolean;
-    export let isPaused: boolean;
-    export let isMusicOpen: boolean;
-    export let isWaveformLoading: boolean;
-
-    export let handlePlayClick: (id: T) => Promise<void>;
-
     import PauseIcon from './icons/PauseIcon.svelte';
     import PlayIcon from './icons/PlayIcon.svelte';
     import Progress from '@smui/linear-progress';
     import Bars from './Bars.svelte';
 
-    let currentTimeDisplay: string;
+    interface Props {
+        id: T;
+        title: string;
+        cover: string;
+        currentTimeSec: number | undefined;
+        totalTime: string;
+        isCurrent: boolean;
+        isPaused: boolean;
+        isWaveformLoading: boolean;
+        onplay: (id: T) => Promise<void>;
+    }
+    let {
+        id,
+        title,
+        cover,
+        currentTimeSec,
+        totalTime,
+        isCurrent,
+        isPaused,
+        isWaveformLoading,
+        onplay
+    }: Props = $props();
 
-    $: {
+    const currentTimeDisplay = $derived.by(() => {
         if (!currentTimeSec || !isCurrent) {
-            currentTimeDisplay = '0:00';
+            return '0:00';
         } else {
             const minutes = Math.floor(currentTimeSec / 60);
             const seconds = Math.floor(currentTimeSec) % 60;
-            currentTimeDisplay = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+            return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
         }
-    }
+    });
 </script>
 
 <div class="track">
-    <div class="cover" style={`background-image: url(${cover})`}>
+    <div class="cover" style="background-image: url({cover})">
         {#if isCurrent}
             <div class="bars">
                 <Bars isPlaying={!isPaused} />
             </div>
         {/if}
         <button
-            on:click={() => handlePlayClick(id)}
-            class={`play-button ${isCurrent ? 'current' : ''}`}
+            onclick={() => onplay(id)}
+            class="play-button {isCurrent ? 'current' : ''}"
             disabled={isWaveformLoading}
         >
-            {#if (isCurrent && isPaused) || !isMusicOpen || !isCurrent}
+            {#if (isCurrent && isPaused) || !isCurrent}
                 <PlayIcon />
             {:else}
                 <PauseIcon />
@@ -51,7 +59,7 @@
     </div>
     <div class="track-main-section">
         <h2 class="title">{title}</h2>
-        <div class="waveform" id={`waveform-${id}`} />
+        <div class="waveform" id="waveform-{id}"></div>
         {#if isWaveformLoading}
             <div class="waveform-loader-container">
                 <Progress class="waveform-loader" indeterminate />

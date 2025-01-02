@@ -2,14 +2,9 @@
     import type { IPostSnippet } from '$lib/server/database/controllers/postController';
     import PostSnippet from './PostSnippet.svelte';
 
-    export let posts: IPostSnippet[];
+    let { posts }: { posts: IPostSnippet[] } = $props();
 </script>
 
 {#each posts as post}
-    <PostSnippet
-        title={post.title}
-        description={post.description}
-        id={post.id}
-        cover={post.cover}
-    />
+    <PostSnippet {...post} />
 {/each}
