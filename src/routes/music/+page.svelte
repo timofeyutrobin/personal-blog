@@ -6,33 +6,9 @@
     import UnmuteIcon from './icons/UnmuteIcon.svelte';
     import MuteIcon from './icons/MuteIcon.svelte';
     import Slider from '@smui/slider';
+    import { tracks, type TrackId } from './tracks';
 
-    // TODO: убрать отсюда
-    const tracks = {
-        interference: {
-            index: 0,
-            src: '/music/interference.mp3',
-            title: 'Вмешательство',
-            cover: '/images/covers/interference_cover.jpeg',
-            duration: '6:18'
-        },
-        ii: {
-            index: 1,
-            src: '/music/II.mp3',
-            title: 'II',
-            cover: '/images/covers/ii_cover.jpeg',
-            duration: '4:35'
-        },
-        radioDream: {
-            index: 2,
-            src: '/music/radiodream.mp3',
-            title: 'Радиомечта',
-            cover: '/images/covers/radiodream_cover.jpeg',
-            duration: '7:53'
-        }
-    };
-    type Tracks = typeof tracks;
-    const trackList = Object.keys(tracks) as (keyof Tracks)[];
+    const trackList = Object.keys(tracks) as TrackId[];
 
     const audioContext = new AudioContext();
     const gainNode = audioContext.createGain();
@@ -45,7 +21,7 @@
     let audioElement: HTMLMediaElement | null = $state(null);
     let audioSource: MediaElementAudioSourceNode | null = $state(null);
 
-    let currentTrackId = $state<keyof Tracks | null>(null);
+    let currentTrackId = $state<TrackId | null>(null);
     let currentTrackIndex = $derived(currentTrackId ? tracks[currentTrackId].index : 0);
 
     let currentTime = $state(0);
@@ -55,18 +31,18 @@
 
     let volumeBeforeMute = $state(gainNode.gain.value);
 
-    let waveforms: Record<keyof Tracks, WaveSurfer | null> = {
+    let waveforms: Record<TrackId, WaveSurfer | null> = {
         ii: null,
         interference: null,
         radioDream: null
     };
-    let waveformsLoading: Record<keyof Tracks, boolean> = {
+    let waveformsLoading: Record<TrackId, boolean> = {
         ii: false,
         interference: false,
         radioDream: false
     };
 
-    async function playNewTrack(trackId: keyof Tracks): Promise<void> {
+    async function playNewTrack(trackId: TrackId): Promise<void> {
         audioElement = document.querySelector<HTMLMediaElement>(`#audio-${trackId}`);
 
         if (!audioElement) {
@@ -101,7 +77,7 @@
         return audioElement!.play();
     }
 
-    async function onplay(trackId: keyof Tracks): Promise<void> {
+    async function onplay(trackId: TrackId): Promise<void> {
         if (trackId !== currentTrackId) {
             stopCurrentTrack();
             await playNewTrack(trackId);
