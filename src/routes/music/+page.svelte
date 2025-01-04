@@ -18,8 +18,8 @@
         gainNode.gain.value = volume;
     });
 
-    let audioElement: HTMLMediaElement | null = $state(null);
-    let audioSource: MediaElementAudioSourceNode | null = $state(null);
+    let audioElement = $state<HTMLMediaElement | null>(null);
+    let audioSource = $state<MediaElementAudioSourceNode | null>(null);
 
     let currentTrackId = $state<TrackId | null>(null);
     let currentTrackIndex = $derived(currentTrackId ? tracks[currentTrackId].index : 0);
@@ -31,18 +31,18 @@
 
     let volumeBeforeMute = $state(gainNode.gain.value);
 
-    let waveforms: Record<TrackId, WaveSurfer | null> = {
+    const waveforms: Record<TrackId, WaveSurfer | null> = {
         ii: null,
         interference: null,
         radioDream: null
     };
-    let waveformsLoading: Record<TrackId, boolean> = {
-        ii: false,
-        interference: false,
-        radioDream: false
-    };
+    const waveformsLoading: Record<TrackId, boolean> = $state({
+        ii: true,
+        interference: true,
+        radioDream: true
+    });
 
-    async function playNewTrack(trackId: TrackId): Promise<void> {
+    async function playNew(trackId: TrackId): Promise<void> {
         audioElement = document.querySelector<HTMLMediaElement>(`#audio-${trackId}`);
 
         if (!audioElement) {
@@ -58,7 +58,7 @@
         waveforms[currentTrackId]?.toggleInteraction(true);
     }
 
-    async function stopCurrentTrack(): Promise<void> {
+    async function stop(): Promise<void> {
         if (!currentTrackId || !audioSource || !audioElement) {
             return;
         }
@@ -69,23 +69,23 @@
         audioElement.fastSeek(0);
     }
 
-    function pauseCurrentTrack(): void {
+    function pause(): void {
         audioElement!.pause();
     }
 
-    async function resumeCurrentTrack(): Promise<void> {
+    async function resume(): Promise<void> {
         return audioElement!.play();
     }
 
     async function onplay(trackId: TrackId): Promise<void> {
         if (trackId !== currentTrackId) {
-            stopCurrentTrack();
-            await playNewTrack(trackId);
+            stop();
+            await playNew(trackId);
         } else {
             if (isPaused) {
-                await resumeCurrentTrack();
+                await resume();
             } else {
-                pauseCurrentTrack();
+                pause();
             }
         }
 
@@ -93,11 +93,11 @@
     }
 
     async function onended(): Promise<void> {
-        stopCurrentTrack();
+        stop();
         const nextTrackIndex = currentTrackIndex + 1 < trackList.length ? currentTrackIndex + 1 : 0;
         const nextTrackId = trackList[nextTrackIndex];
 
-        return playNewTrack(nextTrackId);
+        return playNew(nextTrackId);
     }
 
     const ontimeupdate = throttle((event: Event) => {
@@ -120,9 +120,6 @@
                 cursorWidth: 4,
                 dragToSeek: true,
                 interact: false
-            });
-            waveform.on('loading', () => {
-                waveformsLoading[trackId] = true;
             });
             waveform.on('ready', () => {
                 waveformsLoading[trackId] = false;
