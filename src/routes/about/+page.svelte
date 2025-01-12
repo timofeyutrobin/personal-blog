@@ -3,76 +3,38 @@
     import InstagramIcon from './icons/InstagramIcon.svelte';
 </script>
 
-<main>
-    <article class="personal-info">
-        <img src="/images/avatar.jpeg" alt="avatar" />
-        <div>
-            <h1>Hello, I am Timofey</h1>
-            <p class="subtitle">
-                Film&nbsp;photographer<br />
-                Front-end&nbsp;developer<br />
-                Music composer&nbsp;(sometimes)
-            </p>
-            <section class="links">
-                <a
-                    class="link"
-                    title="instagram"
-                    href="https://www.instagram.com/utorbin"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <InstagramIcon />
-                </a>
-                <a
-                    class="link"
-                    title="github"
-                    href="https://github.com/timofeyutrobin"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <GithubIcon />
-                </a>
-            </section>
-        </div>
-    </article>
-</main>
+<article
+    class="container mx-auto my-8 flex space-x-4 p-6 shadow shadow-neutral-300 sm:max-w-full lg:w-9/12 lg:p-8 xl:w-7/12"
+>
+    <img class="w-1/3 object-cover" src="/images/avatar.jpeg" alt="avatar" />
+    <div>
+        <h1 class="mb-2 text-2xl">Hello, I am Timofey</h1>
+        <p class="text-lg leading-relaxed">
+            Film&nbsp;photographer<br />
+            Front-end&nbsp;developer<br />
+            Music composer&nbsp;(sometimes)
+        </p>
+        <section class="mt-2 flex space-x-1">
+            <a
+                class="size-8"
+                title="instagram"
+                href="https://www.instagram.com/utorbin"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <InstagramIcon />
+            </a>
+            <a
+                class="size-8"
+                title="github"
+                href="https://github.com/timofeyutrobin"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <GithubIcon />
+            </a>
+        </section>
+    </div>
+</article>
 
-<style lang="scss">
-    main {
-        @include content-wrapper;
-        @include sheet;
-
-        margin: indent(4) auto;
-    }
-
-    .personal-info {
-        display: flex;
-        align-items: start;
-    }
-
-    h1 {
-        @include heading-large;
-    }
-
-    img {
-        width: 30%;
-        margin-right: indent(2);
-    }
-
-    .subtitle {
-        @include heading-medium;
-        line-height: 1.6;
-    }
-
-    .links {
-        display: flex;
-        margin-top: indent(1);
-    }
-
-    .link {
-        display: block;
-        width: 32px;
-        height: 32px;
-        margin-right: indent(0.5);
-    }
-</style>
+<style lang="postcss"></style>
