@@ -1,17 +1,11 @@
 <script lang="ts">
-    import '../app.scss';
+    import '../app.css';
     import Header from './Header.svelte';
 </script>
 
 <Header />
-<div>
+<div class="absolute top-16 w-full">
     <slot />
 </div>
 
-<style lang="scss">
-    div {
-        position: absolute;
-        top: 60px;
-        width: 100%;
-    }
-</style>
+<style lang="postcss"></style>
