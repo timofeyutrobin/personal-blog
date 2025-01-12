@@ -10,24 +10,25 @@
 </script>
 
 <!-- TODO: добавить slug вместо id -->
-<article>
-    <h2><a href="/post/{id}">{title}</a></h2>
+<article
+    class="container mx-auto max-w-full space-y-4 p-6 shadow shadow-neutral-300 md:w-9/12 xl:w-7/12"
+>
     {#if cover}
-        <img src={cover.src} alt={cover.alt} />
+        <img class="h-[500px] w-full object-cover" src={cover.src} alt={cover.alt} />
     {/if}
+    <h2 class="text-3xl"><a href="/post/{id}">{title}</a></h2>
     <p>{description}</p>
 </article>
 
-<style lang="scss">
+<!-- <style lang="scss">
     article {
-        @include sheet;
-
         margin-bottom: indent(3);
+        @include sheet;
     }
 
     h2 {
-        @include heading-large;
         margin-bottom: indent(1);
+        @include heading-large;
     }
 
     p {
@@ -50,4 +51,4 @@
             margin-bottom: indent(5);
         }
     }
-</style>
+</style> -->
