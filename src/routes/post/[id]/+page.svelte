@@ -1,17 +1,16 @@
 <script lang="ts">
-    import Post from './Post.svelte';
-
     let { data } = $props();
 </script>
 
-<div>
-    <Post title={data.title} html={data.html} />
-</div>
+<svelte:head>
+    <title>{data.title}</title>
+</svelte:head>
 
-<style lang="scss">
-    div {
-        @include content-wrapper;
-
-        margin: indent(4) auto;
-    }
-</style>
+<article
+    class="container mx-auto my-8 max-w-full p-6 shadow shadow-neutral-300 md:w-9/12 xl:w-7/12"
+>
+    <h1 class="mb-4 text-3xl">{data.title}</h1>
+    <section class="space-y-4 [&>img]:mx-auto [&>img]:w-4/5">
+        {@html data.html}
+    </section>
+</article>

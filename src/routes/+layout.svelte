@@ -4,8 +4,4 @@
 </script>
 
 <Header />
-<div class="absolute top-16 w-full">
-    <slot />
-</div>
-
-<style lang="postcss"></style>
+<slot />
