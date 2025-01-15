@@ -1,15 +1,8 @@
 <svg viewBox="0 0 32 32" role="graphics-symbol" focusable="false">
     <title>Mute</title>
     <path
-        fill="currentColor"
         d="M4,11v10h5l10,6V5L9,11H4z M17,8.532v14.935L9.554,19H6v-6h3.554L17,8.532z M21.657,21.657
 	l-1.414-1.414c2.339-2.34,2.339-6.146,0-8.486l1.414-1.414C24.775,13.462,24.775,18.538,21.657,21.657z M24.485,24.485l-1.414-1.414
 	c3.899-3.899,3.899-10.243,0-14.143l1.414-1.414C29.164,12.193,29.164,19.807,24.485,24.485z"
     />
 </svg>
-
-<style lang="scss">
-    svg {
-        color: $text-color-primary;
-    }
-</style>

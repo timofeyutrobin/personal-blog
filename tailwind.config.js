@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       boxShadow: {
-        'DEFAULT': "0 0 8px"
+        'DEFAULT': '0 0 8px',
+        'bars': '0 0 4px',
       }
     },
   },

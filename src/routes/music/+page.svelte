@@ -108,13 +108,12 @@
         trackList.forEach((trackId) => {
             const waveform = WaveSurfer.create({
                 container: `#waveform-${trackId}`,
-                waveColor: '#8663de',
-                progressColor: '#383351',
+                waveColor: '#a5b4fc',
+                progressColor: '#3730a3',
                 media: document.querySelector<HTMLMediaElement>(`#audio-${trackId}`)!,
                 barWidth: 4,
                 height: 'auto',
                 normalize: true,
-                barRadius: 2,
                 barAlign: 'bottom',
                 barHeight: 10,
                 cursorWidth: 4,
@@ -130,11 +129,20 @@
     });
 </script>
 
-<main>
-    <h1>My music</h1>
-    <div class="controls">
+<svelte:head>
+    <title>Timofey Utrobin - music</title>
+</svelte:head>
+
+<main
+    class="container relative mx-auto my-8 max-w-full p-6 shadow shadow-neutral-300 md:w-9/12 xl:w-7/12"
+>
+    <h1 class="mb-2 text-3xl">My music</h1>
+    <div class="absolute right-6 top-6 flex items-center">
         <button
-            class="mute-button"
+            role="switch"
+            aria-label="mute"
+            aria-checked={isMuted}
+            class="h-8 w-8 rounded-full p-1 outline-none transition-colors hover:bg-indigo-50 focus:bg-indigo-50 active:bg-indigo-50"
             onclick={() => {
                 if (isMuted) {
                     volume = volumeBeforeMute;
@@ -150,9 +158,9 @@
                 <MuteIcon />
             {/if}
         </button>
-        <Slider class="volume-slider" step={0.05} min={0} max={1} bind:value={volume} />
+        <Slider class="hidden w-[150px] sm:block" step={0.05} min={0} max={1} bind:value={volume} />
     </div>
-    <div class="track-list">
+    <div class="flex flex-col items-center sm:block">
         {#each trackList as trackId}
             <audio id="audio-{trackId}" src={tracks[trackId].src} {onended} {ontimeupdate}></audio>
             <Track
@@ -169,37 +177,3 @@
         {/each}
     </div>
 </main>
-
-<style lang="scss">
-    main {
-        position: relative;
-        @include content-wrapper;
-        @include sheet;
-
-        margin: indent(4) auto;
-    }
-
-    h1 {
-        @include heading-large;
-    }
-
-    .mute-button {
-        @include button(32px, 32px);
-    }
-
-    .track-list {
-        margin-top: indent(2);
-    }
-
-    .controls {
-        position: absolute;
-        top: indent(3);
-        right: indent(3);
-        display: flex;
-        align-items: center;
-    }
-
-    :global(.volume-slider) {
-        width: 150px;
-    }
-</style>

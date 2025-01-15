@@ -11,10 +11,10 @@
 
 <!-- TODO: добавить slug вместо id -->
 <article
-    class="container mx-auto max-w-full space-y-4 p-6 shadow shadow-neutral-300 md:w-9/12 xl:w-7/12"
+    class="container mx-auto w-full space-y-4 p-6 align-top shadow shadow-neutral-300 md:w-9/12 xl:w-7/12"
 >
     {#if cover}
-        <img class="h-[500px] w-full object-cover" src={cover.src} alt={cover.alt} />
+        <img class="w-full object-cover" src={cover.src} alt={cover.alt} />
     {/if}
     <h2 class="text-3xl"><a href="/post/{id}">{title}</a></h2>
     <p>{description}</p>
