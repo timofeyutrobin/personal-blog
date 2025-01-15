@@ -2,13 +2,19 @@
     let { isPlaying }: { isPlaying: boolean } = $props();
 </script>
 
-<div class="bars-container {isPlaying ? 'bars-playing' : 'bars-paused'}">
-    <div class="bar bar-1"></div>
-    <div class="bar bar-2"></div>
-    <div class="bar bar-3"></div>
+<div class="relative h-[24px] w-[20px] {isPlaying ? 'bars-playing' : 'bars-paused'}">
+    <div
+        class="bar bar-1 absolute bottom-0 left-0 h-full w-[4px] bg-white shadow-bars shadow-indigo-300"
+    ></div>
+    <div
+        class="bar bar-2 absolute bottom-0 left-[8px] h-full w-[4px] bg-white shadow-bars shadow-indigo-300"
+    ></div>
+    <div
+        class="bar bar-3 absolute bottom-0 left-[16px] h-full w-[4px] bg-white shadow-bars shadow-indigo-300"
+    ></div>
 </div>
 
-<style lang="scss">
+<style>
     @keyframes bar-height {
         0% {
             height: 0px;
@@ -18,31 +24,13 @@
         }
     }
 
-    .bars-container {
-        position: relative;
-        height: 24px;
-        width: 20px;
+    .bars-playing .bar {
+        animation-play-state: running;
     }
-
-    .bars-playing {
-        .bar {
-            animation-play-state: running;
-        }
-    }
-    .bars-paused {
-        .bar {
-            animation-play-state: paused;
-        }
+    .bars-paused .bar {
+        animation-play-state: paused;
     }
     .bar {
-        position: absolute;
-        bottom: 0;
-
-        width: 4px;
-        height: 100%;
-        background-color: $main-background-color;
-        box-shadow: 0 0 4px $link-hover-color;
-        border-radius: 4px;
         animation-name: bar-height;
         animation-iteration-count: infinite;
         animation-direction: alternate-reverse;
@@ -51,15 +39,12 @@
     }
 
     .bar-1 {
-        left: 0;
         animation-delay: 0.2s;
     }
     .bar-2 {
-        left: 8px;
         animation-delay: 0.4s;
     }
     .bar-3 {
-        left: 16px;
         animation-delay: 0.3s;
     }
 </style>
