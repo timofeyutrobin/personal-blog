@@ -8,6 +8,6 @@
     <title>Timofey Utrobin - posts</title>
 </svelte:head>
 
-<main class="my-8 space-y-6">
+<main class="mb-8 space-y-6 sm:my-4">
     <PostFeed posts={data.posts} />
 </main>
