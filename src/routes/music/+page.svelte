@@ -10,16 +10,13 @@
 
     const trackList = Object.keys(tracks) as TrackId[];
 
-    const audioContext = new AudioContext();
-    const gainNode = audioContext.createGain();
-    gainNode.connect(audioContext.destination);
-    let volume = $state(gainNode.gain.value);
+    let audioElements = $state<Record<string, HTMLMediaElement>>();
+    let volume = $state(1);
     $effect(() => {
-        gainNode.gain.value = volume;
+        if (audioElements) {
+            Object.values(audioElements).forEach((audio) => (audio.volume = volume));
+        }
     });
-
-    let audioElement = $state<HTMLMediaElement | null>(null);
-    let audioSource = $state<MediaElementAudioSourceNode | null>(null);
 
     let currentTrackId = $state<TrackId | null>(null);
     let currentTrackIndex = $derived(currentTrackId ? tracks[currentTrackId].index : 0);
@@ -29,7 +26,7 @@
     let isPaused = $state(true);
     let isMuted = $derived(volume === 0);
 
-    let volumeBeforeMute = $state(gainNode.gain.value);
+    let volumeBeforeMute = $state(1);
 
     const waveforms: Record<TrackId, WaveSurfer | null> = {
         ii: null,
@@ -43,38 +40,31 @@
     });
 
     async function playNew(trackId: TrackId): Promise<void> {
-        audioElement = document.querySelector<HTMLMediaElement>(`#audio-${trackId}`);
-
-        if (!audioElement) {
-            throw new Error(`No track with id: ${trackId}.`);
-        }
-
-        audioSource = audioContext.createMediaElementSource(audioElement);
-        audioSource.connect(gainNode);
-
-        await audioElement.play();
+        await audioElements![trackId].play();
 
         currentTrackId = trackId;
         waveforms[currentTrackId]?.toggleInteraction(true);
     }
 
     async function stop(): Promise<void> {
-        if (!currentTrackId || !audioSource || !audioElement) {
+        if (!currentTrackId) {
             return;
         }
         currentTime = 0;
         waveforms[currentTrackId]?.toggleInteraction(false);
-        audioSource.disconnect(gainNode);
+
+        const audioElement = audioElements![currentTrackId];
+
         audioElement.pause();
-        audioElement.fastSeek(0);
+        audioElement.currentTime = 0;
     }
 
     function pause(): void {
-        audioElement!.pause();
+        audioElements![currentTrackId!].pause();
     }
 
     async function resume(): Promise<void> {
-        return audioElement!.play();
+        return audioElements![currentTrackId!].play();
     }
 
     async function onplay(trackId: TrackId): Promise<void> {
@@ -89,7 +79,7 @@
             }
         }
 
-        isPaused = audioElement!.paused;
+        isPaused = audioElements![currentTrackId!].paused;
     }
 
     async function onended(): Promise<void> {
@@ -105,6 +95,10 @@
     });
 
     onMount(() => {
+        audioElements = trackList.reduce<Record<string, HTMLMediaElement>>((elements, trackId) => {
+            elements[trackId] = document.querySelector<HTMLMediaElement>(`#audio-${trackId}`)!;
+            return elements;
+        }, {});
         trackList.forEach((trackId) => {
             const waveform = WaveSurfer.create({
                 container: `#waveform-${trackId}`,
