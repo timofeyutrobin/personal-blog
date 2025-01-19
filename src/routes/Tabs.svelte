@@ -1,27 +1,34 @@
 <script lang="ts">
-    enum Tab {
-        PHOTOS = 'photos',
-        MUSIC = 'music',
-        ABOUT = 'about'
-    }
-    const tabLinks: Record<Tab, string> = {
-        photos: '/',
-        music: '/music',
-        about: '/about'
+    import { throttle } from 'throttle-debounce';
+    import TabsSide from './TabsSide.svelte';
+    let { open, onclose }: { open: boolean; onclose: () => void } = $props();
+
+    const tabs: Record<string, string> = {
+        '/': 'Photos',
+        '/music': 'Music',
+        '/about': 'About&nbsp;me'
     };
-    const tabNames: Record<Tab, string> = {
-        photos: 'Photos',
-        music: 'Music',
-        about: 'About&nbsp;me'
-    };
+
+    let isMobile = $state();
+    const update = throttle(100, () => {
+        isMobile = document.body.clientWidth < parseInt(tailwindConfig.theme.screens.sm);
+    });
+    $effect(update);
 </script>
 
-<nav class="flex space-x-3">
-    {#each Object.values(Tab) as tab}
-        <a class="text-xl" href={tabLinks[tab]}>
-            {@html tabNames[tab]}
-        </a>
-    {/each}
-</nav>
+<svelte:window onresize={update} />
 
-<style land="postcss"></style>
+{#if isMobile && open}
+    <TabsSide {tabs} {onclose} />
+{:else if !isMobile}
+    <nav class="flex h-auto w-auto flex-row gap-4">
+        {#each Object.entries(tabs) as [tabLink, tabName]}
+            <a
+                class="mx-auto text-3xl text-neutral-800 sm:m-0 sm:text-xl sm:text-current"
+                href={tabLink}
+            >
+                {@html tabName}
+            </a>
+        {/each}
+    </nav>
+{/if}

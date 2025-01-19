@@ -8,7 +8,7 @@
 </svelte:head>
 
 <article
-    class="container mx-auto my-8 flex max-w-full flex-col space-y-4 p-6 shadow shadow-neutral-300 sm:flex-row sm:space-x-4 md:w-9/12 xl:w-7/12"
+    class="container mx-auto mb-8 flex max-w-full flex-col space-y-4 p-6 shadow shadow-neutral-300 sm:my-4 sm:flex-row sm:space-x-4 md:w-9/12 xl:w-7/12"
 >
     <img
         class="w-full object-contain object-left-top sm:w-1/3"

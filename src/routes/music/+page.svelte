@@ -1,6 +1,6 @@
 <script lang="ts">
     import WaveSurfer from 'wavesurfer.js';
-    import throttle from 'just-throttle';
+    import { throttle } from 'throttle-debounce';
     import { onMount } from 'svelte';
     import Track from './Track.svelte';
     import UnmuteIcon from './icons/UnmuteIcon.svelte';
@@ -100,9 +100,9 @@
         return playNew(nextTrackId);
     }
 
-    const ontimeupdate = throttle((event: Event) => {
+    const ontimeupdate = throttle(1000, (event: Event) => {
         currentTime = (event.target as HTMLAudioElement).currentTime;
-    }, 1000);
+    });
 
     onMount(() => {
         trackList.forEach((trackId) => {
@@ -134,7 +134,7 @@
 </svelte:head>
 
 <main
-    class="container relative mx-auto my-8 max-w-full p-6 shadow shadow-neutral-300 md:w-9/12 xl:w-7/12"
+    class="container relative mx-auto mb-8 max-w-full p-6 shadow shadow-neutral-300 sm:my-4 md:w-9/12 xl:w-7/12"
 >
     <h1 class="mb-2 text-3xl">My music</h1>
     <div class="absolute right-6 top-6 flex items-center">
