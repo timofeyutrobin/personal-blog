@@ -5,7 +5,7 @@
     import Track from './Track.svelte';
     import UnmuteIcon from './icons/UnmuteIcon.svelte';
     import MuteIcon from './icons/MuteIcon.svelte';
-    import Slider from '@smui/slider';
+    import Slider from './Slider.svelte';
     import { tracks, type TrackId } from './tracks';
 
     const trackList = Object.keys(tracks) as TrackId[];
@@ -136,7 +136,7 @@
             role="switch"
             aria-label="mute"
             aria-checked={isMuted}
-            class="h-8 w-8 rounded-full p-1 outline-none transition-colors hover:bg-indigo-50 focus:bg-indigo-50 active:bg-indigo-50"
+            class="h-8 w-8 mr-2 rounded-full p-1 outline-none transition-colors hover:bg-indigo-50 focus:bg-indigo-50 active:bg-indigo-50"
             onclick={() => {
                 if (isMuted) {
                     volume = volumeBeforeMute;
