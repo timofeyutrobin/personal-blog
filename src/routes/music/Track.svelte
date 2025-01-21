@@ -1,7 +1,6 @@
 <script lang="ts" generics="T extends string">
     import PauseIcon from './icons/PauseIcon.svelte';
     import PlayIcon from './icons/PlayIcon.svelte';
-    import LinearLoader from '@smui/linear-progress';
     import Bars from './Bars.svelte';
 
     interface Props {
@@ -75,7 +74,7 @@
         <div class="mt-4 h-[32px] w-full cursor-pointer" id="waveform-{id}"></div>
         {#if isWaveformLoading}
             <div class="-mt-[32px] flex h-[32px] w-full flex-col justify-around">
-                <LinearLoader class="w-full" indeterminate />
+                <div class="w-full"></div>
             </div>
         {/if}
         <div class="flex w-full justify-between">
