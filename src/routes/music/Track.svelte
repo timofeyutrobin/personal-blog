@@ -2,6 +2,7 @@
     import PauseIcon from './icons/PauseIcon.svelte';
     import PlayIcon from './icons/PlayIcon.svelte';
     import Bars from './Bars.svelte';
+    import LinearLoader from './LinearLoader.svelte';
 
     interface Props {
         id: T;
@@ -71,10 +72,15 @@
     </div>
     <div class="ml-4 w-[300px] shrink">
         <h2 class="text-xl">{title}</h2>
-        <div class="mt-4 h-[32px] w-full cursor-pointer" id="waveform-{id}"></div>
+        <div
+            class="mt-4 h-[32px] w-full cursor-pointer transition-opacity {isWaveformLoading
+                ? 'opacity-0'
+                : 'opacity-100'}"
+            id="waveform-{id}"
+        ></div>
         {#if isWaveformLoading}
-            <div class="-mt-[32px] flex h-[32px] w-full flex-col justify-around">
-                <div class="w-full"></div>
+            <div class="relative h-[32px] flex w-full -mt-[32px]">
+                <LinearLoader class="w-full m-auto" />
             </div>
         {/if}
         <div class="flex w-full justify-between">
