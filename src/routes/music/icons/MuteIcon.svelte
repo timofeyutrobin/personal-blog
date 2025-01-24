@@ -1,4 +1,4 @@
-<svg viewBox="0 0 32 32" role="graphics-symbol" focusable="false">
+<svg class={$$props.class} viewBox="0 0 32 32" role="graphics-symbol" focusable="false">
     <title>Mute</title>
     <path
         d="M4,11v10h5l10,6V5L9,11H4z M17,8.532v14.935L9.554,19H6v-6h3.554L17,8.532z M21.657,21.657

@@ -50,22 +50,46 @@
         {/if}
         <button
             onclick={() => onplay(id)}
-            class="group absolute bottom-0 right-0 flex h-[50px] w-[50px] rounded-full bg-white shadow shadow-indigo-100 transition-shadow hover:shadow-indigo-300 focus:shadow-indigo-300 active:shadow-indigo-300 disabled:shadow-indigo-100 sm:bottom-2 sm:right-2 sm:shadow-current sm:disabled:shadow-current {isCurrent
-                ? 'shadow-indigo-300'
-                : ''}"
+            class="
+                group
+                absolute bottom-0 right-0
+                flex
+                h-[50px] w-[50px]
+                rounded-full bg-white shadow shadow-indigo-100 transition-shadow
+                hover:shadow-indigo-300 focus:shadow-indigo-300 active:shadow-indigo-300
+                disabled:shadow-indigo-100
+                sm:bottom-2 sm:right-2
+                sm:shadow-current sm:disabled:shadow-current
+                dark:bg-zinc-900
+                dark:shadow-none
+                dark:border
+                dark:border-zinc-500
+                {isCurrent ? 'shadow-indigo-300' : ''}
+            "
             disabled={isWaveformLoading}
         >
             {#if (isCurrent && isPaused) || !isCurrent}
                 <PlayIcon
-                    class="m-auto h-[36px] w-[36px] transition-colors group-hover:fill-indigo-600 group-focus:fill-indigo-600 group-active:fill-indigo-600 group-disabled:fill-current {isCurrent
-                        ? 'fill-indigo-600'
-                        : ''}"
+                    class="
+                        m-auto h-[36px] w-[36px]
+                        transition-colors
+                        fill-current
+                        group-hover:fill-indigo-600 group-focus:fill-indigo-600 group-active:fill-indigo-600
+                        dark:group-hover:fill-indigo-400 dark:group-focus:fill-indigo-400 dark:group-active:fill-indigo-400
+                        group-disabled:fill-current
+                        {isCurrent ? 'fill-indigo-600 dark:fill-indigo-400' : ''}
+                    "
                 />
             {:else}
                 <PauseIcon
-                    class="m-auto h-[36px] w-[36px] transition-colors group-hover:fill-indigo-600 group-focus:fill-indigo-600 group-active:fill-indigo-600 {isCurrent
-                        ? 'fill-indigo-600'
-                        : ''}"
+                    class="
+                        m-auto h-[36px] w-[36px]
+                        transition-colors
+                        fill-current
+                        group-hover:fill-indigo-600 group-focus:fill-indigo-600 group-active:fill-indigo-600
+                        dark:group-hover:fill-indigo-400 dark:group-focus:fill-indigo-400 dark:group-active:fill-indigo-400
+                        {isCurrent ? 'fill-indigo-600 dark:fill-indigo-400' : ''}
+                    "
                 />
             {/if}
         </button>
