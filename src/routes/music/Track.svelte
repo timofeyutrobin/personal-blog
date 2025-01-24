@@ -2,43 +2,48 @@
     import PauseIcon from './icons/PauseIcon.svelte';
     import PlayIcon from './icons/PlayIcon.svelte';
     import Bars from './Bars.svelte';
-    import LinearLoader from './LinearLoader.svelte';
+    import Seek from './Seek.svelte';
 
     interface Props {
         id: T;
         title: string;
         cover: string;
-        currentTimeSec: number | undefined;
-        totalTime: string;
+        currentTime: number;
+        totalTime: number | undefined;
         isCurrent: boolean;
         isPaused: boolean;
-        isWaveformLoading: boolean;
+        peaks: number[];
         onplay: (id: T) => Promise<void>;
+        onseek: (time: number) => void;
     }
     let {
         id,
         title,
         cover,
-        currentTimeSec,
+        currentTime,
         totalTime,
         isCurrent,
         isPaused,
-        isWaveformLoading,
-        onplay
+        peaks,
+        onplay,
+        onseek
     }: Props = $props();
 
-    const currentTimeDisplay = $derived.by(() => {
-        if (!currentTimeSec || !isCurrent) {
+    const formatTime = (time: number | undefined): string => {
+        if (!time) {
             return '0:00';
         } else {
-            const minutes = Math.floor(currentTimeSec / 60);
-            const seconds = Math.floor(currentTimeSec) % 60;
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time) % 60;
             return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
         }
-    });
+    };
+
+    const currentTimeDisplay = $derived(formatTime(isCurrent ? currentTime : 0));
+    const totalTimeDisplay = $derived(formatTime(totalTime));
 </script>
 
-<div class="flex items-center py-4">
+<div class="flex w-full items-center py-4">
     <div
         class="relative h-[50px] w-[50px] shrink-0 rounded-full sm:h-[200px] sm:w-[200px] sm:rounded-none"
     >
@@ -66,7 +71,6 @@
                 dark:border-zinc-500
                 {isCurrent ? 'shadow-indigo-300' : ''}
             "
-            disabled={isWaveformLoading}
         >
             {#if (isCurrent && isPaused) || !isCurrent}
                 <PlayIcon
@@ -94,22 +98,22 @@
             {/if}
         </button>
     </div>
-    <div class="ml-4 w-[300px] shrink">
+    <div class="ml-4 basis-[300px]">
         <h2 class="text-xl">{title}</h2>
-        <div
-            class="mt-4 h-[32px] w-full cursor-pointer transition-opacity {isWaveformLoading
-                ? 'opacity-0'
-                : 'opacity-100'}"
-            id="waveform-{id}"
-        ></div>
-        {#if isWaveformLoading}
-            <div class="relative h-[32px] flex w-full -mt-[32px]">
-                <LinearLoader class="w-full m-auto" />
-            </div>
-        {/if}
+        <div class="h-[48px] w-full mt-4">
+            {#if totalTime}
+                <Seek
+                    {totalTime}
+                    {onseek}
+                    {peaks}
+                    currentTime={isCurrent ? currentTime : 0}
+                    disabled={!isCurrent}
+                />
+            {/if}
+        </div>
         <div class="flex w-full justify-between">
             <span class="text-sm">{currentTimeDisplay}</span>
-            <span class="text-sm">{totalTime}</span>
+            <span class="text-sm">{totalTimeDisplay}</span>
         </div>
     </div>
 </div>
