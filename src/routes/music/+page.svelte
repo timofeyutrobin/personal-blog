@@ -128,7 +128,13 @@
 </svelte:head>
 
 <main
-    class="container relative mx-auto mb-8 max-w-full p-6 shadow shadow-neutral-300 sm:my-4 md:w-9/12 xl:w-7/12"
+    class="
+        container relative
+        mx-auto mb-8 max-w-full p-6
+        shadow shadow-zinc-300
+        sm:my-4 md:w-9/12 xl:w-7/12
+        dark:shadow-none dark:bg-zinc-800
+    "
 >
     <h1 class="mb-2 text-3xl">My music</h1>
     <div class="absolute right-6 top-6 flex items-center">
@@ -136,7 +142,11 @@
             role="switch"
             aria-label="mute"
             aria-checked={isMuted}
-            class="h-8 w-8 mr-2 rounded-full p-1 outline-none transition-colors hover:bg-indigo-50 focus:bg-indigo-50 active:bg-indigo-50"
+            class="
+                h-8 w-8 mr-2
+                rounded-full p-1 outline-none transition-colors
+                hover:bg-indigo-50 focus:bg-indigo-50 active:bg-indigo-50
+                dark:hover:bg-indigo-800 dark:focus:bg-indigo-800 dark:active:bg-indigo-800"
             onclick={() => {
                 if (isMuted) {
                     volume = volumeBeforeMute;
@@ -147,9 +157,9 @@
             }}
         >
             {#if isMuted}
-                <UnmuteIcon />
+                <UnmuteIcon class="fill-current" />
             {:else}
-                <MuteIcon />
+                <MuteIcon class="fill-current" />
             {/if}
         </button>
         <Slider class="hidden w-[150px] sm:block" step={0.05} min={0} max={1} bind:value={volume} />
