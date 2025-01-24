@@ -38,7 +38,7 @@
         <p class="leading-relaxed">
             Film&nbsp;photographer<br />
             Front-end&nbsp;developer<br />
-            Music&nbsp;composer(sometimes)
+            Music&nbsp;composer (sometimes)
         </p>
         <section class="mt-2 flex space-x-1">
             <a
