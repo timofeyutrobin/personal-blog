@@ -1,7 +1,5 @@
 <script lang="ts">
-    import WaveSurfer from 'wavesurfer.js';
     import { throttle } from 'throttle-debounce';
-    import { onMount } from 'svelte';
     import Track from './Track.svelte';
     import UnmuteIcon from './icons/UnmuteIcon.svelte';
     import MuteIcon from './icons/MuteIcon.svelte';
@@ -10,12 +8,11 @@
 
     const trackList = Object.keys(tracks) as TrackId[];
 
-    let audioElements = $state<Record<string, HTMLMediaElement>>();
+    let audioElements = $state<Record<string, HTMLMediaElement>>({});
+    let audioDuration = $state<Record<string, number>>({});
     let volume = $state(1);
     $effect(() => {
-        if (audioElements) {
-            Object.values(audioElements).forEach((audio) => (audio.volume = volume));
-        }
+        Object.values(audioElements).forEach((audio) => (audio.volume = volume));
     });
 
     let currentTrackId = $state<TrackId | null>(null);
@@ -28,22 +25,10 @@
 
     let volumeBeforeMute = $state(1);
 
-    const waveforms: Record<TrackId, WaveSurfer | null> = {
-        ii: null,
-        interference: null,
-        radioDream: null
-    };
-    const waveformsLoading: Record<TrackId, boolean> = $state({
-        ii: true,
-        interference: true,
-        radioDream: true
-    });
-
     async function playNew(trackId: TrackId): Promise<void> {
-        await audioElements![trackId].play();
+        await audioElements[trackId]?.play();
 
         currentTrackId = trackId;
-        waveforms[currentTrackId]?.toggleInteraction(true);
     }
 
     async function stop(): Promise<void> {
@@ -51,20 +36,19 @@
             return;
         }
         currentTime = 0;
-        waveforms[currentTrackId]?.toggleInteraction(false);
 
-        const audioElement = audioElements![currentTrackId];
+        const audioElement = audioElements[currentTrackId];
 
         audioElement.pause();
         audioElement.currentTime = 0;
     }
 
     function pause(): void {
-        audioElements![currentTrackId!].pause();
+        audioElements[currentTrackId!].pause();
     }
 
     async function resume(): Promise<void> {
-        return audioElements![currentTrackId!].play();
+        return audioElements[currentTrackId!].play();
     }
 
     async function onplay(trackId: TrackId): Promise<void> {
@@ -79,7 +63,7 @@
             }
         }
 
-        isPaused = audioElements![currentTrackId!].paused;
+        isPaused = audioElements[currentTrackId!].paused;
     }
 
     async function onended(): Promise<void> {
@@ -92,34 +76,6 @@
 
     const ontimeupdate = throttle(1000, (event: Event) => {
         currentTime = (event.target as HTMLAudioElement).currentTime;
-    });
-
-    onMount(() => {
-        audioElements = trackList.reduce<Record<string, HTMLMediaElement>>((elements, trackId) => {
-            elements[trackId] = document.querySelector<HTMLMediaElement>(`#audio-${trackId}`)!;
-            return elements;
-        }, {});
-        trackList.forEach((trackId) => {
-            const waveform = WaveSurfer.create({
-                container: `#waveform-${trackId}`,
-                waveColor: '#a5b4fc',
-                progressColor: '#3730a3',
-                media: document.querySelector<HTMLMediaElement>(`#audio-${trackId}`)!,
-                barWidth: 4,
-                height: 'auto',
-                normalize: true,
-                barAlign: 'bottom',
-                barHeight: 10,
-                cursorWidth: 4,
-                dragToSeek: true,
-                interact: false
-            });
-            waveform.on('ready', () => {
-                waveformsLoading[trackId] = false;
-            });
-
-            waveforms[trackId] = waveform;
-        });
     });
 </script>
 
@@ -166,17 +122,26 @@
     </div>
     <div class="flex flex-col items-center sm:block">
         {#each trackList as trackId}
-            <audio id="audio-{trackId}" src={tracks[trackId].src} {onended} {ontimeupdate}></audio>
+            <audio
+                bind:this={audioElements[trackId]}
+                id="audio-{trackId}"
+                src={tracks[trackId].src}
+                {onended}
+                {ontimeupdate}
+                onloadedmetadata={(event) =>
+                    (audioDuration[trackId] = (event.target as HTMLAudioElement).duration)}
+            ></audio>
             <Track
                 id={trackId}
                 title={tracks[trackId].title}
                 cover={tracks[trackId].cover}
                 isCurrent={trackId === currentTrackId}
-                isWaveformLoading={waveformsLoading[trackId]}
                 {isPaused}
                 {onplay}
-                totalTime={tracks[trackId].duration}
-                currentTimeSec={currentTime}
+                totalTime={audioDuration[trackId]}
+                {currentTime}
+                onseek={(time) => (audioElements[trackId].currentTime = time)}
+                peaks={tracks[trackId].peaks}
             />
         {/each}
     </div>

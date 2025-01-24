@@ -13,7 +13,7 @@
 <div class="relative">
     <input type="range" class={className} bind:value {min} {max} {step} />
     <div
-        class="absolute top-0 left-0 h-[4px] w-full bg-indigo-500"
+        class="absolute top-0 left-0 h-[4px] w-full bg-indigo-600"
         style:width="{progressWidthInPercent}%"
     ></div>
 </div>
@@ -44,11 +44,6 @@
             [&::-webkit-slider-thumb]:rounded-full
             [&::-webkit-slider-thumb]:relative
             [&::-webkit-slider-thumb]:z-10
-            [&::-webkit-slider-thumb]:bg-indigo-600
-
-            dark:[&::-moz-range-thumb]:bg-indigo-500
-            dark:[&::-webkit-slider-thumb]:bg-indigo-500
-            dark:[&::-webkit-slider-runnable-track]:bg-indigo-800
-            dark:[&::-moz-range-track]:bg-indigo-800;
+            [&::-webkit-slider-thumb]:bg-indigo-600;
     }
 </style>

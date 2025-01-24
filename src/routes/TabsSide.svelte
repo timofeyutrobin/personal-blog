@@ -9,7 +9,7 @@
 <nav
     transition:blur
     class="
-        fixed left-0 top-0 z-10
+        fixed left-0 top-0 z-20
         h-full w-full
         flex flex-col justify-center gap-14
         backdrop-blur-xl
