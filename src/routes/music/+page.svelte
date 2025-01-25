@@ -74,9 +74,8 @@
         return playNew(nextTrackId);
     }
 
-    const ontimeupdate = throttle(1000, (event: Event) => {
-        currentTime = (event.target as HTMLAudioElement).currentTime;
-    });
+    const ontimeupdate = (event: Event) =>
+        (currentTime = (event.target as HTMLAudioElement).currentTime);
 </script>
 
 <svelte:head>
