@@ -10,13 +10,13 @@
     };
 
     let isMobile = $state();
-    const update = throttle(100, () => {
+    const onresize = throttle(100, () => {
         isMobile = document.body.clientWidth < parseInt(tailwindConfig.theme.screens.sm);
     });
-    $effect(update);
+    $effect(onresize);
 </script>
 
-<svelte:window onresize={update} />
+<svelte:window {onresize} />
 
 {#if isMobile && open}
     <TabsSide {tabs} {onclose} />
