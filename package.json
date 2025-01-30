@@ -17,7 +17,7 @@
         "@sveltejs/vite-plugin-svelte": "4.0.4",
         "@types/throttle-debounce": "5.0.2",
         "@typescript-eslint/eslint-plugin": "5.45.0",
-        "@typescript-eslint/parser": "^5.45.0",
+        "@typescript-eslint/parser": "5.45.0",
         "autoprefixer": "10.4.20",
         "eslint": "8.28.0",
         "eslint-config-prettier": "8.5.0",
@@ -34,7 +34,6 @@
     },
     "type": "module",
     "dependencies": {
-        "mongodb": "6.1.0",
-        "wavesurfer.js": "7.3.8"
+        "mongodb": "6.1.0"
     }
 }
