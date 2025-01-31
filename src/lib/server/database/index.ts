@@ -1,19 +1,5 @@
-import { DATABASE_URL } from '$env/static/private';
-import { MongoClient } from 'mongodb';
+import { createClient } from '@supabase/supabase-js'
+import { SUPABASE_ANON_KEY, SUPABASE_URL } from '$env/static/private'
+import type { Database } from '$lib/types/supabase';
 
-const client = new MongoClient(DATABASE_URL);
-
-export const connectToDatabase = async () => {
-    try {
-        await client.connect();
-        console.log('Connected to MongoDB');
-    } catch (error) {
-        console.log(`MongoDB connection error: ${error}`);
-    }
-};
-
-export const disconnectFromDatabase = async () => {
-    client.close();
-};
-
-export const db = client.db();
+export const db = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY);
