@@ -9,7 +9,7 @@
         '/about': 'About&nbsp;me'
     };
 
-    let isMobile = $state();
+    let isMobile = $state<boolean | null>(null);
     const onresize = throttle(100, () => {
         isMobile = document.body.clientWidth < parseInt(tailwindConfig.theme.screens.sm);
     });
@@ -20,7 +20,7 @@
 
 {#if isMobile && open}
     <TabsSide {tabs} {onclose} />
-{:else if !isMobile}
+{:else if isMobile === false}
     <nav class="flex h-auto w-auto flex-row gap-4">
         {#each Object.entries(tabs) as [tabLink, tabName]}
             <a
