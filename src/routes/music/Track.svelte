@@ -9,7 +9,7 @@
         title: string;
         cover: string;
         currentTime: number;
-        totalTime: number | undefined;
+        totalTime: number;
         isCurrent: boolean;
         isPaused: boolean;
         peaks: number[];
@@ -29,7 +29,7 @@
         onseek
     }: Props = $props();
 
-    const formatTime = (time: number | undefined): string => {
+    const formatTime = (time: number): string => {
         if (!time) {
             return '0:00';
         } else {
@@ -40,7 +40,7 @@
     };
 
     const currentTimeDisplay = $derived(formatTime(isCurrent ? currentTime : 0));
-    const totalTimeDisplay = $derived(formatTime(totalTime));
+    const totalTimeDisplay = formatTime(totalTime);
 </script>
 
 <div class="flex w-full items-center py-4">
