@@ -108,10 +108,10 @@
     dark:shadow-none dark:bg-zinc-800
     "
 >
+    <h1 class="mb-2 text-3xl">My music</h1>
     {#if isLoading}
-        LOADING...
+        <div class="py-2">LOADING...</div>
     {:else}
-        <h1 class="mb-2 text-3xl">My music</h1>
         <div class="absolute right-6 top-6 flex items-center">
             <button
                 role="switch"
