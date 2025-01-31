@@ -1,12 +1,19 @@
 <script lang="ts">
-    import type { Image } from '$lib/types/common';
+    import { PostType, type PostSnippetModel } from '$lib/types/posts';
 
     let {
         id,
         title,
         description,
-        cover
-    }: { id: string; title: string; description: string; cover?: Image | null } = $props();
+        cover,
+        type
+    }: {
+        id: number;
+        title: string;
+        description?: string | null;
+        cover?: PostSnippetModel['cover'];
+        type: PostType;
+    } = $props();
 </script>
 
 <!-- TODO: добавить slug вместо id -->
@@ -23,6 +30,14 @@
     {#if cover}
         <img class="w-full object-cover" src={cover.src} alt={cover.alt} />
     {/if}
-    <h2 class="text-3xl"><a href="/post/{id}">{title}</a></h2>
-    <p>{description}</p>
+    <h2 class="text-3xl">
+        {#if type === PostType.FULL}
+            <a href="/post/{id}">{title}</a>
+        {:else}
+            {title}
+        {/if}
+    </h2>
+    {#if description}
+        <p>{description}</p>
+    {/if}
 </article>
