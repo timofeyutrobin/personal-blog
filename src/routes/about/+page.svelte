@@ -29,7 +29,7 @@
     "
 >
     <img
-        class="w-full object-contain object-left-top sm:w-1/3"
+        class="w-full object-cover sm:w-[230px] sm:h-[270px]"
         src="/images/avatar.jpeg"
         alt="avatar"
     />
