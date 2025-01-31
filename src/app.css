@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-    @apply text-zinc-900 bg-white dark:text-zinc-200 dark:bg-zinc-900;
+@layer base {
+    html {
+        @apply text-zinc-900 bg-white dark:text-zinc-200 dark:bg-zinc-900;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 }
