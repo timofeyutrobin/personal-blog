@@ -1,11 +1,12 @@
-<script lang="ts" generics="T extends string">
+<script lang="ts">
     import PauseIcon from './icons/PauseIcon.svelte';
     import PlayIcon from './icons/PlayIcon.svelte';
     import Bars from './Bars.svelte';
     import Seek from './Seek.svelte';
+    import SpinnerIcon from './icons/SpinnerIcon.svelte';
 
     interface Props {
-        id: T;
+        id: string;
         title: string;
         cover: string;
         currentTime: number;
@@ -13,7 +14,9 @@
         isCurrent: boolean;
         isPaused: boolean;
         peaks: number[];
-        onplay: (id: T) => Promise<void>;
+        isLoading: boolean;
+        disabled?: boolean;
+        onplay: (id: string) => Promise<void>;
         onseek: (time: number) => void;
     }
     let {
@@ -25,6 +28,8 @@
         isCurrent,
         isPaused,
         peaks,
+        isLoading,
+        disabled,
         onplay,
         onseek
     }: Props = $props();
@@ -54,7 +59,8 @@
             </div>
         {/if}
         <button
-            onclick={() => onplay(id)}
+            disabled={isLoading || disabled}
+            onclick={() => !isLoading && onplay(id)}
             class="
                 group
                 absolute bottom-0 right-0
@@ -72,7 +78,15 @@
                 {isCurrent ? 'shadow-indigo-300' : ''}
             "
         >
-            {#if (isCurrent && isPaused) || !isCurrent}
+            {#if isLoading}
+                <SpinnerIcon
+                    class="
+                        animate-spin
+                        m-auto h-[36px] w-[36px]
+                        stroke-current
+                    "
+                />
+            {:else if (isCurrent && isPaused) || !isCurrent}
                 <PlayIcon
                     class="
                         m-auto h-[36px] w-[36px]
@@ -80,7 +94,7 @@
                         fill-current
                         group-hover:fill-indigo-600 group-focus:fill-indigo-600 group-active:fill-indigo-600
                         dark:group-hover:fill-indigo-400 dark:group-focus:fill-indigo-400 dark:group-active:fill-indigo-400
-                        group-disabled:fill-current
+                        group-disabled:fill-current group-disabled:group-hover:fill-current group-disabled:group-focus:fill-current group-disabled:group-active:fill-current
                         {isCurrent ? 'fill-indigo-600 dark:fill-indigo-400' : ''}
                     "
                 />
