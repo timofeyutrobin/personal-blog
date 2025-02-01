@@ -3,6 +3,7 @@ export interface Track {
     src: string;
     title: string;
     cover: string;
+    duration: number;
     peaks: number[];
 }
 
@@ -12,6 +13,7 @@ export const tracks: Record<string, Track> = {
         src: '/music/interference.mp3',
         title: 'Вмешательство',
         cover: '/images/covers/interference_cover.jpeg',
+        duration: 377,
         peaks: [
             0.6,
             0.7,
@@ -52,6 +54,7 @@ export const tracks: Record<string, Track> = {
         src: '/music/II.mp3',
         title: 'II',
         cover: '/images/covers/ii_cover.jpeg',
+        duration: 275,
         peaks: [
             0.6,
             0.7,
@@ -92,6 +95,7 @@ export const tracks: Record<string, Track> = {
         src: '/music/radiodream.mp3',
         title: 'Радиомечта',
         cover: '/images/covers/radiodream_cover.jpeg',
+        duration: 473,
         peaks: [
             0.6,
             0.7,
