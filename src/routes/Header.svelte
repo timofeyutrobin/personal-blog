@@ -9,9 +9,7 @@
     };
 </script>
 
-<header
-    class="my-auto flex w-full items-baseline gap-4 px-6 py-4 bg-white sm:gap-6 dark:bg-zinc-900"
->
+<header class="flex w-full items-baseline gap-4 px-6 py-4 bg-white sm:gap-6 dark:bg-zinc-900">
     <button onclick={() => (isTabsOpen = true)} class="h-8 w-8 shrink-0 self-center p-1 sm:hidden">
         <MenuIcon class="fill-current" />
     </button>
