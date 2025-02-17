@@ -12,7 +12,7 @@ export const tracks: Record<string, Track> = {
         index: 0,
         src: '/music/interference.mp3',
         title: 'Вмешательство',
-        cover: '/images/covers/interference_cover.jpeg',
+        cover: 'interference_cover.jpeg',
         duration: 377,
         peaks: [
             0.6,
@@ -53,7 +53,7 @@ export const tracks: Record<string, Track> = {
         index: 1,
         src: '/music/II.mp3',
         title: 'II',
-        cover: '/images/covers/ii_cover.jpeg',
+        cover: 'ii_cover.jpeg',
         duration: 275,
         peaks: [
             0.6,
@@ -94,7 +94,7 @@ export const tracks: Record<string, Track> = {
         index: 2,
         src: '/music/radiodream.mp3',
         title: 'Радиомечта',
-        cover: '/images/covers/radiodream_cover.jpeg',
+        cover: 'radiodream_cover.jpeg',
         duration: 473,
         peaks: [
             0.6,

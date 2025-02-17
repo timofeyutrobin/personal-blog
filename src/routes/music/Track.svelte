@@ -4,6 +4,7 @@
     import Bars from './Bars.svelte';
     import Seek from './Seek.svelte';
     import SpinnerIcon from './icons/SpinnerIcon.svelte';
+    import { getContext } from 'svelte';
 
     interface Props {
         id: string;
@@ -33,6 +34,7 @@
         onplay,
         onseek
     }: Props = $props();
+    const coversUrlPrefix = getContext('coversUrlPrefix');
 
     const formatTime = (time: number): string => {
         if (!time) {
@@ -52,7 +54,11 @@
     <div
         class="relative h-[50px] w-[50px] shrink-0 rounded-full sm:h-[200px] sm:w-[200px] sm:rounded-none"
     >
-        <img src={cover} alt="Track cover" class="absolute hidden h-full w-full sm:block" />
+        <img
+            src="{coversUrlPrefix}/{cover}"
+            alt="Track cover"
+            class="absolute hidden h-full w-full sm:block"
+        />
         {#if isCurrent}
             <div class="absolute bottom-2 left-2 hidden sm:block">
                 <Bars isPlaying={!isPaused} />
