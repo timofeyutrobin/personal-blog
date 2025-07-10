@@ -10,7 +10,7 @@ export interface Track {
 export const tracks: Record<string, Track> = {
     interference: {
         index: 0,
-        src: '/music/interference.mp3',
+        src: 'interference.mp3',
         title: 'Вмешательство',
         cover: 'interference_cover.jpeg',
         duration: 377,
@@ -51,7 +51,7 @@ export const tracks: Record<string, Track> = {
     },
     ii: {
         index: 1,
-        src: '/music/II.mp3',
+        src: 'II.mp3',
         title: 'II',
         cover: 'ii_cover.jpeg',
         duration: 275,
@@ -92,7 +92,7 @@ export const tracks: Record<string, Track> = {
     },
     radioDream: {
         index: 2,
-        src: '/music/radiodream.mp3',
+        src: 'radiodream.mp3',
         title: 'Радиомечта',
         cover: 'radiodream_cover.jpeg',
         duration: 473,

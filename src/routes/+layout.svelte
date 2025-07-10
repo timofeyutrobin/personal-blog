@@ -4,7 +4,7 @@
     import Header from './Header.svelte';
     import { setContext } from 'svelte';
 
-    let { children, data: imageUrlPrefixes } = $props();
+    let { children, data: urlPrefixes } = $props();
 
     let isDarkTheme = $state(false);
     setContext('toggleDarkTheme', () => (isDarkTheme = !isDarkTheme));
@@ -18,9 +18,10 @@
         document.documentElement.classList.toggle('dark', isDarkTheme);
     });
 
-    setContext('photosUrlPrefix', imageUrlPrefixes.photosUrlPrefix);
-    setContext('coversUrlPrefix', imageUrlPrefixes.coversUrlPrefix);
-    setContext('siteImagesUrlPrefix', imageUrlPrefixes.siteUrlPrefix);
+    setContext('photosUrlPrefix', urlPrefixes.photosUrlPrefix);
+    setContext('coversUrlPrefix', urlPrefixes.coversUrlPrefix);
+    setContext('siteImagesUrlPrefix', urlPrefixes.siteImagesUrlPrefix);
+    setContext('musicUrlPrefix', urlPrefixes.musicUrlPrefix);
 </script>
 
 <Header />
