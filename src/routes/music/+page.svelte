@@ -90,7 +90,7 @@
     "
 >
     <h1 class="mb-2 text-3xl">My music</h1>
-    <div class="absolute right-6 top-6 flex items-center">
+    <section class="absolute right-6 top-6 flex items-center">
         <button
             role="switch"
             aria-label="mute"
@@ -116,7 +116,7 @@
             {/if}
         </button>
         <Slider class="hidden w-[150px] sm:block" step={0.05} min={0} max={1} bind:value={volume} />
-    </div>
+    </section>
     <div class="flex flex-col items-center sm:block">
         {#each trackList as trackId}
             <audio
@@ -134,6 +134,7 @@
                 id={trackId}
                 title={tracks[trackId].title}
                 cover={tracks[trackId].cover}
+                isNew={tracks[trackId].isNew}
                 isCurrent={trackId === currentTrackId}
                 {isPaused}
                 {onplay}

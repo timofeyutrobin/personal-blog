@@ -9,6 +9,7 @@
     interface Props {
         id: string;
         title: string;
+        isNew?: boolean;
         cover: string;
         currentTime: number;
         totalTime: number;
@@ -23,6 +24,7 @@
     let {
         id,
         title,
+        isNew,
         cover,
         currentTime,
         totalTime,
@@ -50,7 +52,7 @@
     const totalTimeDisplay = formatTime(totalTime);
 </script>
 
-<div class="flex w-full items-center py-4">
+<article class="flex w-full items-center py-4">
     <div
         class="relative h-[50px] w-[50px] shrink-0 rounded-full sm:h-[200px] sm:w-[200px] sm:rounded-none"
     >
@@ -118,8 +120,11 @@
             {/if}
         </button>
     </div>
-    <div class="ml-4 basis-[300px]">
-        <h2 class="text-xl">{title}</h2>
+    <section class="ml-4 basis-[300px]">
+        <h2 class="flex text-xl">
+            <span>{title}</span>
+            {#if isNew}<i class="ml-2 bg-indigo-600 text-sm p-1 text-white not-italic">NEW!</i>{/if}
+        </h2>
         <div class="h-[48px] w-full mt-4">
             {#if totalTime}
                 <Seek
@@ -135,5 +140,5 @@
             <span class="text-sm">{currentTimeDisplay}</span>
             <span class="text-sm">{totalTimeDisplay}</span>
         </div>
-    </div>
-</div>
+    </section>
+</article>

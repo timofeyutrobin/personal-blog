@@ -5,6 +5,7 @@ export interface Track {
     cover: string;
     duration: number;
     peaks: number[];
+    isNew?: boolean;
 }
 
 export const tracks: Record<string, Track> = {
