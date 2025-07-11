@@ -9,8 +9,26 @@ export interface Track {
 }
 
 export const tracks: Record<string, Track> = {
-    interference: {
+    dustOnTheWaves: {
         index: 0,
+        src: 'dust_on_the_waves.mp3',
+        title: 'Пыль На Волнах',
+        cover: 'dust_on_the_waves_cover.jpeg',
+        duration: 254,
+        peaks: [
+            0.1, 0.2668335903612662, 0.3961105813277228, 0.3942713377181458, 0.5200360342335587,
+            0.5161271489138858, 0.5191256698156214, 0.5342287836101581, 0.4541981679398416,
+            0.5500416512405193, 0.8906887746407838, 0.6345937223164827, 0.573382171997885,
+            0.5527326090633201, 0.5534311447830195, 0.5868654541609432, 0.43404557431137025,
+            0.44590352632934116, 0.6432483781247594, 0.44939315488063003, 0.7764340519735896,
+            0.8699020838275208, 0.8821508097909944, 1, 0.9629141538138888, 0.9067272575864463,
+            0.603413352421411, 0.5657308260308197, 0.49755484127542604, 0.5739461255595169,
+            0.6392460319149578, 0.38562649066712273
+        ],
+        isNew: true
+    },
+    interference: {
+        index: 1,
         src: 'interference.mp3',
         title: 'Вмешательство',
         cover: 'interference_cover.jpeg',
@@ -27,7 +45,7 @@ export const tracks: Record<string, Track> = {
         ]
     },
     ii: {
-        index: 1,
+        index: 2,
         src: 'II.mp3',
         title: 'II',
         cover: 'ii_cover.jpeg',
@@ -44,7 +62,7 @@ export const tracks: Record<string, Track> = {
         ]
     },
     radioDream: {
-        index: 2,
+        index: 3,
         src: 'radiodream.mp3',
         title: 'Радиомечта',
         cover: 'radiodream_cover.jpeg',
