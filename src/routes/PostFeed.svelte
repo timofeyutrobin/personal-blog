@@ -6,5 +6,11 @@
 </script>
 
 {#each posts as post}
-    <PostSnippet {...post} />
+    <PostSnippet
+        id={post.id}
+        title={post.title}
+        type={post.type}
+        cover={post.cover}
+        description={post.description}
+    />
 {/each}

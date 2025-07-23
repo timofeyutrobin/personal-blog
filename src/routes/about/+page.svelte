@@ -1,9 +1,7 @@
 <script>
-    import { getContext } from 'svelte';
+    import { PUBLIC_SITE_IMAGES_BASE_URL } from '$env/static/public';
     import GithubIcon from './icons/GithubIcon.svelte';
     import InstagramIcon from './icons/InstagramIcon.svelte';
-
-    const siteImagesUrlPrefix = getContext('siteImagesUrlPrefix');
 </script>
 
 <svelte:head>
@@ -33,7 +31,7 @@
 >
     <img
         class="w-full object-cover sm:w-[230px] sm:h-[270px]"
-        src="{siteImagesUrlPrefix}/avatar.jpeg"
+        src="{PUBLIC_SITE_IMAGES_BASE_URL}/avatar.jpeg"
         alt="avatar"
     />
     <div>

@@ -1,6 +1,6 @@
 export enum PostType {
-    MINI,
-    FULL
+    MINI = 'MINI',
+    FULL = 'FULL'
 }
 
 export interface PostSnippetModel {

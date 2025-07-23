@@ -4,10 +4,9 @@
     import MuteIcon from './icons/MuteIcon.svelte';
     import Slider from './Slider.svelte';
     import { tracks, type TrackId } from './tracks';
-    import { getContext } from 'svelte';
+    import { PUBLIC_MUSIC_BASE_URL } from '$env/static/public';
 
     const trackList = Object.keys(tracks) as TrackId[];
-    const urlPrefix = getContext('musicUrlPrefix');
 
     let audioElements = $state<Record<string, HTMLMediaElement>>({});
     let isAudioLoading = $state<Record<string, boolean>>({});
@@ -124,7 +123,7 @@
                 bind:volume
                 preload="none"
                 id="audio-{trackId}"
-                src="{urlPrefix}/{tracks[trackId].src}"
+                src="{PUBLIC_MUSIC_BASE_URL}/{tracks[trackId].src}"
                 oncanplay={() => (isAudioLoading[trackId] = false)}
                 onwaiting={() => (isAudioLoading[trackId] = true)}
                 {onended}

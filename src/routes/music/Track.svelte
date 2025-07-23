@@ -4,7 +4,7 @@
     import Bars from './Bars.svelte';
     import Seek from './Seek.svelte';
     import SpinnerIcon from './icons/SpinnerIcon.svelte';
-    import { getContext } from 'svelte';
+    import { PUBLIC_COVERS_BASE_URL } from '$env/static/public';
 
     interface Props {
         id: string;
@@ -36,7 +36,6 @@
         onplay,
         onseek
     }: Props = $props();
-    const coversUrlPrefix = getContext('coversUrlPrefix');
 
     const formatTime = (time: number): string => {
         if (!time) {
@@ -57,7 +56,7 @@
         class="relative h-[50px] w-[50px] shrink-0 rounded-full sm:h-[200px] sm:w-[200px] sm:rounded-none"
     >
         <img
-            src="{coversUrlPrefix}/{cover}"
+            src="{PUBLIC_COVERS_BASE_URL}/{cover}"
             alt="Track cover"
             class="absolute hidden h-full w-full sm:block"
         />

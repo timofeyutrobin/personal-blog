@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { PostType, type PostSnippetModel } from '$lib/types/posts';
-    import { getContext } from 'svelte';
+    import { PUBLIC_PHOTOS_BASE_URL } from '$env/static/public';
+    import { type PostModel, PostType } from '$lib/types/posts';
 
     let {
         id,
@@ -12,11 +12,9 @@
         id: number;
         title: string;
         description?: string | null;
-        cover?: PostSnippetModel['cover'];
+        cover?: PostModel['cover'];
         type: PostType;
     } = $props();
-
-    const photosUrlPrefix = getContext('photosUrlPrefix');
 </script>
 
 <!-- TODO: добавить slug вместо id -->
@@ -31,7 +29,11 @@
     "
 >
     {#if cover}
-        <img class="w-full object-cover" src="{photosUrlPrefix}/{cover.src}" alt={cover.alt} />
+        <img
+            class="w-full object-cover"
+            src="{PUBLIC_PHOTOS_BASE_URL}/{cover.src}"
+            alt={cover.alt}
+        />
     {/if}
     <h2 class="text-3xl">
         {#if type === PostType.FULL}
