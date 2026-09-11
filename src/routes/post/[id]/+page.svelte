@@ -20,3 +20,40 @@
         {@html data.html}
     </section>
 </article>
+
+<style>
+    section :global(h1) {
+        @apply mb-2 text-2xl font-bold;
+    }
+
+    section :global(h2) {
+        @apply mb-2 text-xl font-semibold;
+    }
+
+    section :global(h3) {
+        @apply mb-2 text-lg font-semibold;
+    }
+
+    section :global(img) {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 1rem 0;
+    }
+
+    section :global(p) {
+        @apply my-4;
+    }
+
+    section :global(ol) {
+        @apply list-decimal;
+    }
+
+    section :global(li) {
+        @apply list-item ml-4 mt-4;
+    }
+
+    section :global(a) {
+        @apply text-indigo-500 hover:text-indigo-600 focus:text-indigo-600 active:text-indigo-600;
+    }
+</style>
