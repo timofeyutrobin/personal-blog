@@ -1,10 +1,10 @@
 <script lang="ts">
-    import Track from './Track.svelte';
-    import UnmuteIcon from './icons/UnmuteIcon.svelte';
-    import MuteIcon from './icons/MuteIcon.svelte';
-    import Slider from './Slider.svelte';
-    import { tracks, type TrackId } from './tracks';
     import { PUBLIC_MUSIC_BASE_URL } from '$env/static/public';
+    import MuteIcon from './icons/MuteIcon.svelte';
+    import UnmuteIcon from './icons/UnmuteIcon.svelte';
+    import Slider from './Slider.svelte';
+    import Track from './Track.svelte';
+    import { tracks, type TrackId } from './tracks';
 
     const trackList = Object.keys(tracks) as TrackId[];
 
@@ -83,7 +83,7 @@
     class="
         container relative
         mx-auto mb-8 max-w-full p-6
-        shadow shadow-zinc-300
+        shadow-md shadow-zinc-300
         sm:my-4 md:w-9/12 xl:w-7/12
         dark:shadow-none dark:bg-zinc-800
     "

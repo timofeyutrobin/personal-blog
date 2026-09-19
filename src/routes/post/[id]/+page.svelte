@@ -10,7 +10,7 @@
     class="
         container
         mx-auto max-w-full p-6
-        shadow shadow-zinc-300
+        shadow-md shadow-zinc-300
         sm:my-4 md:w-9/12 xl:w-7/12
         dark:shadow-none dark:bg-zinc-800
     "

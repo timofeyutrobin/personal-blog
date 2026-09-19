@@ -1,13 +1,16 @@
+import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from './tailwind.config';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
 
 /** @type {import('vite').UserConfig} */
-const config = {
-	plugins: [sveltekit()],
-	define: {
-		tailwindConfig: resolveConfig(tailwindConfig),
-	}
-};
-
-export default config;
+export default defineConfig({
+    plugins: [
+        tailwindcss(),
+        sveltekit({
+            adapter: adapter({
+                runtime: 'nodejs22.x'
+            })
+        })
+    ]
+});

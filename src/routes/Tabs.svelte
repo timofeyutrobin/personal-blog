@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { browser } from '$app/environment';
     import { throttle } from 'throttle-debounce';
     import TabsSide from './TabsSide.svelte';
     let { open, onclose }: { open: boolean; onclose: () => void } = $props();
@@ -8,10 +9,12 @@
         '/music': 'Music',
         '/about': 'About&nbsp;me'
     };
+    const mobileBreakpoint =
+        browser && getComputedStyle(document.documentElement).getPropertyValue('--breakpoint-sm');
 
     let isMobile = $state<boolean | null>(null);
     const onresize = throttle(100, () => {
-        isMobile = document.body.clientWidth < parseInt(tailwindConfig.theme.screens.sm);
+        isMobile = document.body.clientWidth < parseInt(mobileBreakpoint || '');
     });
     $effect(onresize);
 </script>

@@ -23,7 +23,7 @@
         container
         mx-auto w-full
         space-y-4 p-6 align-top
-        shadow shadow-zinc-300
+        shadow-md shadow-zinc-300
         md:w-9/12 xl:w-7/12
         dark:shadow-none dark:bg-zinc-800
     "

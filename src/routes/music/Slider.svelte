@@ -19,6 +19,8 @@
 </div>
 
 <style lang="postcss">
+    @reference 'tailwindcss';
+
     input {
         @apply cursor-pointer
             appearance-none
