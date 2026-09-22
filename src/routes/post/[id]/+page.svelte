@@ -9,7 +9,7 @@
     {@const Post = post.default}
     <article
         class="
-            prose prose-zinc prose-img:max-w-175 prose-img:max-h-[70vh]
+            prose prose-zinc prose-img:max-w-full xl:prose-img:max-w-175 prose-img:max-h-175
             container mx-auto max-w-full p-6
             shadow-md shadow-zinc-300
             sm:my-4 md:w-9/12 xl:w-7/12
