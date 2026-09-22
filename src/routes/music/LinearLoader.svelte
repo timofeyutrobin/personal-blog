@@ -9,10 +9,10 @@
 <style type="postcss">
     @keyframes load {
         0% {
-            @apply opacity-0;
+            opacity: 0;
         }
         100% {
-            @apply opacity-100;
+            opacity: 100;
         }
     }
 

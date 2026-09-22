@@ -3,19 +3,11 @@ export enum PostType {
     FULL = 'FULL'
 }
 
-export interface PostSnippetModel {
-    id: number;
+export interface PostMetadata {
     type: PostType;
     title: string;
-    description: string | null;
-    slug: string | null;
-    date: string | null;
-    cover: {
-        src: string;
-        alt: string;
-    } | null;
-}
-
-export interface PostModel extends PostSnippetModel {
-    html: string;
+    description?: string;
+    created: string;
+    cover: string;
+    alt: string;
 }

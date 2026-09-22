@@ -40,6 +40,7 @@
 </div>
 
 <style lang="postcss">
+    @reference 'tailwindcss';
     input {
         @apply block
             cursor-pointer

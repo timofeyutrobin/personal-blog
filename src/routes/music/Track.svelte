@@ -1,10 +1,10 @@
 <script lang="ts">
-    import PauseIcon from './icons/PauseIcon.svelte';
-    import PlayIcon from './icons/PlayIcon.svelte';
+    import { PUBLIC_COVERS_BASE_URL } from '$env/static/public';
     import Bars from './Bars.svelte';
     import Seek from './Seek.svelte';
+    import PauseIcon from './icons/PauseIcon.svelte';
+    import PlayIcon from './icons/PlayIcon.svelte';
     import SpinnerIcon from './icons/SpinnerIcon.svelte';
-    import { PUBLIC_COVERS_BASE_URL } from '$env/static/public';
 
     interface Props {
         id: string;
@@ -73,7 +73,7 @@
                 absolute bottom-0 right-0
                 flex
                 h-[50px] w-[50px]
-                rounded-full bg-white shadow shadow-indigo-100 transition-shadow
+                rounded-full bg-white shadow-md shadow-indigo-100 transition-shadow
                 hover:shadow-indigo-300 focus:shadow-indigo-300 active:shadow-indigo-300
                 disabled:shadow-indigo-100
                 sm:bottom-2 sm:right-2
