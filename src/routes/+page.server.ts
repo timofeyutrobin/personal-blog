@@ -20,6 +20,8 @@ function getPosts(): (PostMetadata & { id: string })[] {
         });
     }
 
+    posts.sort((a, b) => b.created.localeCompare(a.created));
+
     return posts;
 }
 
