@@ -30,8 +30,8 @@
     "
 >
     <img
-        class="w-full object-cover sm:w-[230px] sm:h-[270px]"
-        src="{PUBLIC_SITE_IMAGES_BASE_URL}/avatar.jpeg"
+        class="w-[230px] h-[270px] object-cover"
+        src="{PUBLIC_SITE_IMAGES_BASE_URL}/avatar.webp"
         alt="avatar"
     />
     <div>

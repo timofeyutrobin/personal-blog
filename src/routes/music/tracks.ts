@@ -13,7 +13,7 @@ export const tracks: Record<string, Track> = {
         index: 0,
         src: 'dust_on_the_waves.mp3',
         title: 'Пыль На Волнах',
-        cover: 'dust_on_the_waves_cover.jpeg',
+        cover: 'dust_on_the_waves_cover.webp',
         duration: 254,
         peaks: [
             0.1, 0.2668335903612662, 0.3961105813277228, 0.3942713377181458, 0.5200360342335587,
@@ -31,7 +31,7 @@ export const tracks: Record<string, Track> = {
         index: 1,
         src: 'interference.mp3',
         title: 'Вмешательство',
-        cover: 'interference_cover.jpeg',
+        cover: 'interference_cover.webp',
         duration: 377,
         peaks: [
             0.1, 0.28467970116658436, 0.4785427706977524, 0.5195963664127388, 0.6686515061845196,
@@ -48,7 +48,7 @@ export const tracks: Record<string, Track> = {
         index: 2,
         src: 'II.mp3',
         title: 'II',
-        cover: 'ii_cover.jpeg',
+        cover: 'ii_cover.webp',
         duration: 275,
         peaks: [
             0.31312524801249453, 0.45153574173123134, 0.5650019630466973, 0.5708743614954095,
@@ -65,7 +65,7 @@ export const tracks: Record<string, Track> = {
         index: 3,
         src: 'radiodream.mp3',
         title: 'Радиомечта',
-        cover: 'radiodream_cover.jpeg',
+        cover: 'radiodream_cover.webp',
         duration: 473,
         peaks: [
             0.4726521469633552, 0.8695107291157234, 0.988713711891228, 1, 0.9983949432322355,

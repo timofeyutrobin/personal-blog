@@ -5,7 +5,7 @@
     let { open, onclose }: { open: boolean; onclose: () => void } = $props();
 
     const tabs: Record<string, string> = {
-        '/': 'Photos',
+        '/': 'Blog',
         '/music': 'Music',
         '/about': 'About&nbsp;me'
     };
