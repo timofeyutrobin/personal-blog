@@ -76,7 +76,7 @@
 </script>
 
 <svelte:head>
-    <title>Timofey Utrobin - music</title>
+    <title>Тимофей Утробин - музыка</title>
 </svelte:head>
 
 <main
@@ -88,7 +88,7 @@
         dark:shadow-none dark:bg-zinc-800
     "
 >
-    <h1 class="mb-2 text-3xl">My music</h1>
+    <h1 class="mb-2 text-3xl">Моя музыка</h1>
     <section class="absolute right-6 top-6 flex items-center">
         <button
             role="switch"
