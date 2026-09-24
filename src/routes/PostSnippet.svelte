@@ -21,7 +21,7 @@
     } = $props();
 
     const dateString = $derived(
-        new Date(created).toLocaleDateString(['en-US', 'ru-RU'], {
+        new Date(created).toLocaleDateString(['ru-RU'], {
             day: 'numeric',
             month: 'long',
             year: 'numeric'

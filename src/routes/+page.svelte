@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-    <title>Timofey Utrobin - posts</title>
+    <title>Тимофей Утробин - блог</title>
 </svelte:head>
 
 <main class="mb-8 space-y-6 sm:my-4">
@@ -14,6 +14,6 @@
             <PostSnippet {id} {type} {cover} {title} {description} {created} />
         {/if}
     {:else}
-        <p class="w-full text-center mt-32 text-lg text-zinc-500">No posts :(</p>
+        <p class="w-full text-center mt-32 text-lg text-zinc-500">Тут ничего нет</p>
     {/each}
 </main>

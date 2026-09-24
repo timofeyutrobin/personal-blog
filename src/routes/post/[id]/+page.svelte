@@ -4,7 +4,7 @@
 </script>
 
 {#await import(`$lib/posts/${params.id}.md`)}
-    <p class="w-full text-center mt-32 text-lg text-zinc-500">Loading...</p>
+    <p class="w-full text-center mt-32 text-lg text-zinc-500">Загрузка...</p>
 {:then post}
     {@const Post = post.default}
     <article
@@ -18,6 +18,6 @@
     >
         <Post />
     </article>
-{:catch error}
-    <p>error!</p>
+{:catch}
+    <p class="w-full text-center mt-32 text-lg text-zinc-500">Непредвиденная ошибка :(</p>
 {/await}

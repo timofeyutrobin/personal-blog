@@ -5,9 +5,9 @@
     let { open, onclose }: { open: boolean; onclose: () => void } = $props();
 
     const tabs: Record<string, string> = {
-        '/': 'Blog',
-        '/music': 'Music',
-        '/about': 'About&nbsp;me'
+        '/': 'Блог',
+        '/music': 'Музыка',
+        '/about': 'Обо&nbsp;мне'
     };
     const mobileBreakpoint =
         browser && getComputedStyle(document.documentElement).getPropertyValue('--breakpoint-sm');

@@ -13,7 +13,7 @@
     <button onclick={() => (isTabsOpen = true)} class="h-8 w-8 shrink-0 self-center p-1 sm:hidden">
         <MenuIcon class="fill-current" />
     </button>
-    <a class="text-3xl" tabindex="-1" href="/">Timofey&nbsp;Utrobin</a>
+    <a class="text-3xl" tabindex="-1" href="/">Тимофей&nbsp;Утробин</a>
     <Tabs open={isTabsOpen} onclose={closeTabs} />
     <ThemeButton class="h-6 w-6 self-center ml-auto hidden sm:block" />
 </header>

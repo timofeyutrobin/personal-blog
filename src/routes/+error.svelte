@@ -19,7 +19,7 @@
             "
             href="/"
         >
-            Go to home page
+            Вернуться на главную
         </a>
     {/if}
 </main>

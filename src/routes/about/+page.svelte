@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-    <title>Timofey Utrobin</title>
+    <title>Тимофей Утробин</title>
 </svelte:head>
 
 <article
@@ -30,16 +30,16 @@
     "
 >
     <img
-        class="w-[230px] h-[270px] object-cover"
+        class="w-58 h-68 object-cover"
         src="{PUBLIC_SITE_IMAGES_BASE_URL}/avatar.webp"
         alt="avatar"
     />
     <div>
-        <h1 class="mb-2 text-3xl">Hello, I am&nbsp;Timofey</h1>
+        <h1 class="mb-2 text-3xl">Привет! Меня зовут Тимофей</h1>
         <p class="leading-relaxed">
-            Film&nbsp;photographer<br />
-            Front-end&nbsp;developer<br />
-            Music&nbsp;composer (sometimes)
+            Фотографирую на пленку и на цифру<br />
+            Разработчик<br />
+            Пишу музыку (редко)
         </p>
         <section class="mt-2 flex space-x-1">
             <a
